@@ -1,12 +1,10 @@
-pragma solidity ^0.4.4;
+pragma solidity ^0.4.16;
 
 contract UserCertificates {
-
 	address private owner;
-	mapping (address => string) private certificates;
+	mapping (address => string) public certificates;
 
-	//Adds a certificate (sender + hash) to a user
-	function addCertificate(string ipfsHash) public	payable {
+	function addCertificate(string ipfsHash) public payable {
 		certificates[msg.sender] = ipfsHash;
 	}
 }
