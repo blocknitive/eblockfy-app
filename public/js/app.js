@@ -36,6 +36,19 @@ var abiArray = [
 var contractAddress = '0x5133015b67a664cc526b59c8b6b735a10e16cedd'
 
 $(document).ready(function () {
+
+    if (typeof web3 === "undefined" || !web3.currentProvider.isMetaMask) {
+        $('#login-disabled-text').append('No se ha detectado la extensión MetaMask activa. Por favor instala la extensión <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">aquí</a> y refresca la página.')
+        $('#login-disabled-text').show();
+        $('#login-button').attr('disabled', 'disabled');
+    }
+
+    if (web3.eth.coinbase == null) {
+        $('#login-disabled-text').append('No se ha detectado una cuenta registrada en la extensión MetaMask. Por favor entra o crea una cuenta en MetaMask sobre la red en la que desees realizar las operaciones y refresca la página.')
+        $('#login-disabled-text').show();
+        $('#login-button').attr('disabled', 'disabled');
+    }
+
     $('#form-login').on('submit', function (e) {
         e.preventDefault();
         $("#login-panel").hide();
