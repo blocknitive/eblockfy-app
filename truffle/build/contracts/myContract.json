@@ -1,0 +1,934 @@
+{
+  "contractName": "myContract",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "n",
+          "type": "uint256"
+        }
+      ],
+      "name": "addBet",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "n",
+          "type": "uint256"
+        },
+        {
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "modifyBet",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6060604052341561000f57600080fd5b61029f8061001e6000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680639f12fde014610051578063cdaba7861461009f575b600080fd5b341561005c57600080fd5b61007b60048080359060200190919080359060200190919050506100d6565b60405180848152602001838152602001828152602001935050505060405180910390f35b34156100aa57600080fd5b6100c060048080359060200190919050506100e2565b6040518082815260200191505060405180910390f35b60008060009250925092565b60006100ec61020c565b828160000181815250506000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002080548060010182816101469190610220565b91600052602060002090016000839091909150600082015181600001555050506000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060016000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002080549050038154811015156101f557fe5b906000526020600020900160000154915050919050565b602060405190810160405280600081525090565b81548183558181151161024757818360005260206000209182019101610246919061024c565b5b505050565b61027091905b8082111561026c5760008082016000905550600101610252565b5090565b905600a165627a7a7230582043b4d7a81268c652b43c99895a8dd4e505716e2166a98e6526d85c67c7a064bf0029",
+  "deployedBytecode": "0x60606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680639f12fde014610051578063cdaba7861461009f575b600080fd5b341561005c57600080fd5b61007b60048080359060200190919080359060200190919050506100d6565b60405180848152602001838152602001828152602001935050505060405180910390f35b34156100aa57600080fd5b6100c060048080359060200190919050506100e2565b6040518082815260200191505060405180910390f35b60008060009250925092565b60006100ec61020c565b828160000181815250506000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002080548060010182816101469190610220565b91600052602060002090016000839091909150600082015181600001555050506000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060016000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002080549050038154811015156101f557fe5b906000526020600020900160000154915050919050565b602060405190810160405280600081525090565b81548183558181151161024757818360005260206000209182019101610246919061024c565b5b505050565b61027091905b8082111561026c5760008082016000905550600101610252565b5090565b905600a165627a7a7230582043b4d7a81268c652b43c99895a8dd4e505716e2166a98e6526d85c67c7a064bf0029",
+  "sourceMap": "25:1664:2:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "25:1664:2:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;457:1230;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;175:238;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;457:1230;504:4;509;514;457:1230;;;;;:::o;175:238::-;207:4;219:13;;:::i;:::-;249:1;238;:8;;:12;;;;;256;:24;269:10;256:24;;;;;;;;;;;;;;;:32;;;;;;;;;;;:::i;:::-;;;;;;;;;;286:1;256:32;;;;;;;;;;;;;;;;342:12;:24;355:10;342:24;;;;;;;;;;;;;;;400:1;367:12;:24;380:10;367:24;;;;;;;;;;;;;;;:31;;;;:34;342:60;;;;;;;;;;;;;;;;;;:67;;;335:74;;175:238;;;;:::o;25:1664::-;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.0;\n\ncontract myContract\n{\n\n// a structure that stores bets\n\nstruct Bets{\n    uint betNum; // some int number\n}\n\nmapping(address => Bets[]) myBetMapping;\n\nfunction addBet(uint n) returns(uint)\n{\n    Bets memory l;\n    l.betNum = n;\n    myBetMapping[msg.sender].push(l);\n\n   //check the last bet is added or not\n\n   return myBetMapping[msg.sender][myBetMapping[msg.sender].length -1].betNum;\n\n}\n\n// lets modify the mapping and the array\n\nfunction modifyBet(uint n, uint index) returns(uint,uint,uint)\n{\n    /*\n    Bets memory l;\n    l.betNum = n;\n\n    add new bet\n\n    myBetMapping[msg.sender].push(l);\n    return myBetMapping[msg.sender][myBetMapping[msg.sender].length -1].betNum;\n    */\n    /*\n    add new bet at index\n\n     delete myBetMapping[msg.sender][index];\n     myBetMapping[msg.sender][index] = l;\n\n     // return the added value\n\n     return myBetMapping[msg.sender][index].betNum;\n    */\n    /*\n    deleting a bet and reducing the length , (index starts from 0)\n\n    //delete the struct \n\n    delete myBetMapping[msg.sender][index];\n\n    for(uint i = index ;i<myBetMapping[msg.sender].length-1; i++)\n    {\n        // shifts value to left\n        myBetMapping[msg.sender][i] =  myBetMapping[msg.sender][i+1];\n\n    }\n\n     //deleting the last value\n     delete myBetMapping[msg.sender][myBetMapping[msg.sender].length-1];\n\n     //reducing the length\n     myBetMapping[msg.sender].length--;\n\n     //checking evrything works fine or not by returning the last value, the second last and the length\n     return (myBetMapping[msg.sender][index].betNum,myBetMapping[msg.sender][myBetMapping[msg.sender].length-1].betNum,myBetMapping[msg.sender].length);\n    */\n}\n}\n",
+  "sourcePath": "/home/guillermo/devs/eblockfy-app/truffle/contracts/NewContract.sol",
+  "ast": {
+    "attributes": {
+      "absolutePath": "/home/guillermo/devs/eblockfy-app/truffle/contracts/NewContract.sol",
+      "exportedSymbols": {
+        "myContract": [
+          522
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".0"
+          ]
+        },
+        "id": 460,
+        "name": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            522
+          ],
+          "name": "myContract",
+          "scope": 523
+        },
+        "children": [
+          {
+            "attributes": {
+              "canonicalName": "myContract.Bets",
+              "name": "Bets",
+              "scope": 522,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "betNum",
+                  "scope": 463,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint",
+                      "type": "uint256"
+                    },
+                    "id": 461,
+                    "name": "ElementaryTypeName",
+                    "src": "98:4:2"
+                  }
+                ],
+                "id": 462,
+                "name": "VariableDeclaration",
+                "src": "98:11:2"
+              }
+            ],
+            "id": 463,
+            "name": "StructDefinition",
+            "src": "81:50:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "myBetMapping",
+              "scope": 522,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "mapping(address => struct myContract.Bets storage ref[] storage ref)",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "type": "mapping(address => struct myContract.Bets storage ref[] storage ref)"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "type": "address"
+                    },
+                    "id": 464,
+                    "name": "ElementaryTypeName",
+                    "src": "141:7:2"
+                  },
+                  {
+                    "attributes": {
+                      "length": null,
+                      "type": "struct myContract.Bets storage ref[] storage pointer"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Bets",
+                          "referencedDeclaration": 463,
+                          "type": "struct myContract.Bets storage pointer"
+                        },
+                        "id": 465,
+                        "name": "UserDefinedTypeName",
+                        "src": "152:4:2"
+                      }
+                    ],
+                    "id": 466,
+                    "name": "ArrayTypeName",
+                    "src": "152:6:2"
+                  }
+                ],
+                "id": 467,
+                "name": "Mapping",
+                "src": "133:26:2"
+              }
+            ],
+            "id": 468,
+            "name": "VariableDeclaration",
+            "src": "133:39:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "addBet",
+              "payable": false,
+              "scope": 522,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "n",
+                      "scope": 507,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 469,
+                        "name": "ElementaryTypeName",
+                        "src": "191:4:2"
+                      }
+                    ],
+                    "id": 470,
+                    "name": "VariableDeclaration",
+                    "src": "191:6:2"
+                  }
+                ],
+                "id": 471,
+                "name": "ParameterList",
+                "src": "190:8:2"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 507,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 472,
+                        "name": "ElementaryTypeName",
+                        "src": "207:4:2"
+                      }
+                    ],
+                    "id": 473,
+                    "name": "VariableDeclaration",
+                    "src": "207:4:2"
+                  }
+                ],
+                "id": 474,
+                "name": "ParameterList",
+                "src": "206:6:2"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "assignments": [
+                        null
+                      ],
+                      "initialValue": null
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "l",
+                          "scope": 507,
+                          "stateVariable": false,
+                          "storageLocation": "memory",
+                          "type": "struct myContract.Bets memory",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "Bets",
+                              "referencedDeclaration": 463,
+                              "type": "struct myContract.Bets storage pointer"
+                            },
+                            "id": 475,
+                            "name": "UserDefinedTypeName",
+                            "src": "219:4:2"
+                          }
+                        ],
+                        "id": 476,
+                        "name": "VariableDeclaration",
+                        "src": "219:13:2"
+                      }
+                    ],
+                    "id": 477,
+                    "name": "VariableDeclarationStatement",
+                    "src": "219:13:2"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "betNum",
+                              "referencedDeclaration": 462,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 476,
+                                  "type": "struct myContract.Bets memory",
+                                  "value": "l"
+                                },
+                                "id": 478,
+                                "name": "Identifier",
+                                "src": "238:1:2"
+                              }
+                            ],
+                            "id": 480,
+                            "name": "MemberAccess",
+                            "src": "238:8:2"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 470,
+                              "type": "uint256",
+                              "value": "n"
+                            },
+                            "id": 481,
+                            "name": "Identifier",
+                            "src": "249:1:2"
+                          }
+                        ],
+                        "id": 482,
+                        "name": "Assignment",
+                        "src": "238:12:2"
+                      }
+                    ],
+                    "id": 483,
+                    "name": "ExpressionStatement",
+                    "src": "238:12:2"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_Bets_$463_memory_ptr",
+                                  "typeString": "struct myContract.Bets memory"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "push",
+                              "referencedDeclaration": null,
+                              "type": "function (struct myContract.Bets storage ref) returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct myContract.Bets storage ref[] storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 468,
+                                      "type": "mapping(address => struct myContract.Bets storage ref[] storage ref)",
+                                      "value": "myBetMapping"
+                                    },
+                                    "id": 484,
+                                    "name": "Identifier",
+                                    "src": "256:12:2"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "sender",
+                                      "referencedDeclaration": null,
+                                      "type": "address"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 574,
+                                          "type": "msg",
+                                          "value": "msg"
+                                        },
+                                        "id": 485,
+                                        "name": "Identifier",
+                                        "src": "269:3:2"
+                                      }
+                                    ],
+                                    "id": 486,
+                                    "name": "MemberAccess",
+                                    "src": "269:10:2"
+                                  }
+                                ],
+                                "id": 487,
+                                "name": "IndexAccess",
+                                "src": "256:24:2"
+                              }
+                            ],
+                            "id": 488,
+                            "name": "MemberAccess",
+                            "src": "256:29:2"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 476,
+                              "type": "struct myContract.Bets memory",
+                              "value": "l"
+                            },
+                            "id": 489,
+                            "name": "Identifier",
+                            "src": "286:1:2"
+                          }
+                        ],
+                        "id": 490,
+                        "name": "FunctionCall",
+                        "src": "256:32:2"
+                      }
+                    ],
+                    "id": 491,
+                    "name": "ExpressionStatement",
+                    "src": "256:32:2"
+                  },
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 474
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "member_name": "betNum",
+                          "referencedDeclaration": 462,
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "type": "struct myContract.Bets storage ref"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct myContract.Bets storage ref[] storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 468,
+                                      "type": "mapping(address => struct myContract.Bets storage ref[] storage ref)",
+                                      "value": "myBetMapping"
+                                    },
+                                    "id": 492,
+                                    "name": "Identifier",
+                                    "src": "342:12:2"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "sender",
+                                      "referencedDeclaration": null,
+                                      "type": "address"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 574,
+                                          "type": "msg",
+                                          "value": "msg"
+                                        },
+                                        "id": 493,
+                                        "name": "Identifier",
+                                        "src": "355:3:2"
+                                      }
+                                    ],
+                                    "id": 494,
+                                    "name": "MemberAccess",
+                                    "src": "355:10:2"
+                                  }
+                                ],
+                                "id": 495,
+                                "name": "IndexAccess",
+                                "src": "342:24:2"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "-",
+                                  "type": "uint256"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "length",
+                                      "referencedDeclaration": null,
+                                      "type": "uint256"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "isConstant": false,
+                                          "isLValue": true,
+                                          "isPure": false,
+                                          "lValueRequested": false,
+                                          "type": "struct myContract.Bets storage ref[] storage ref"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
+                                              "referencedDeclaration": 468,
+                                              "type": "mapping(address => struct myContract.Bets storage ref[] storage ref)",
+                                              "value": "myBetMapping"
+                                            },
+                                            "id": 496,
+                                            "name": "Identifier",
+                                            "src": "367:12:2"
+                                          },
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "isConstant": false,
+                                              "isLValue": false,
+                                              "isPure": false,
+                                              "lValueRequested": false,
+                                              "member_name": "sender",
+                                              "referencedDeclaration": null,
+                                              "type": "address"
+                                            },
+                                            "children": [
+                                              {
+                                                "attributes": {
+                                                  "argumentTypes": null,
+                                                  "overloadedDeclarations": [
+                                                    null
+                                                  ],
+                                                  "referencedDeclaration": 574,
+                                                  "type": "msg",
+                                                  "value": "msg"
+                                                },
+                                                "id": 497,
+                                                "name": "Identifier",
+                                                "src": "380:3:2"
+                                              }
+                                            ],
+                                            "id": 498,
+                                            "name": "MemberAccess",
+                                            "src": "380:10:2"
+                                          }
+                                        ],
+                                        "id": 499,
+                                        "name": "IndexAccess",
+                                        "src": "367:24:2"
+                                      }
+                                    ],
+                                    "id": 500,
+                                    "name": "MemberAccess",
+                                    "src": "367:31:2"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "hexvalue": "31",
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "subdenomination": null,
+                                      "token": "number",
+                                      "type": "int_const 1",
+                                      "value": "1"
+                                    },
+                                    "id": 501,
+                                    "name": "Literal",
+                                    "src": "400:1:2"
+                                  }
+                                ],
+                                "id": 502,
+                                "name": "BinaryOperation",
+                                "src": "367:34:2"
+                              }
+                            ],
+                            "id": 503,
+                            "name": "IndexAccess",
+                            "src": "342:60:2"
+                          }
+                        ],
+                        "id": 504,
+                        "name": "MemberAccess",
+                        "src": "342:67:2"
+                      }
+                    ],
+                    "id": 505,
+                    "name": "Return",
+                    "src": "335:74:2"
+                  }
+                ],
+                "id": 506,
+                "name": "Block",
+                "src": "213:200:2"
+              }
+            ],
+            "id": 507,
+            "name": "FunctionDefinition",
+            "src": "175:238:2"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "modifyBet",
+              "payable": false,
+              "scope": 522,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "n",
+                      "scope": 521,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 508,
+                        "name": "ElementaryTypeName",
+                        "src": "476:4:2"
+                      }
+                    ],
+                    "id": 509,
+                    "name": "VariableDeclaration",
+                    "src": "476:6:2"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "index",
+                      "scope": 521,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 510,
+                        "name": "ElementaryTypeName",
+                        "src": "484:4:2"
+                      }
+                    ],
+                    "id": 511,
+                    "name": "VariableDeclaration",
+                    "src": "484:10:2"
+                  }
+                ],
+                "id": 512,
+                "name": "ParameterList",
+                "src": "475:20:2"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 521,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 513,
+                        "name": "ElementaryTypeName",
+                        "src": "504:4:2"
+                      }
+                    ],
+                    "id": 514,
+                    "name": "VariableDeclaration",
+                    "src": "504:4:2"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 521,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 515,
+                        "name": "ElementaryTypeName",
+                        "src": "509:4:2"
+                      }
+                    ],
+                    "id": 516,
+                    "name": "VariableDeclaration",
+                    "src": "509:4:2"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 521,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 517,
+                        "name": "ElementaryTypeName",
+                        "src": "514:4:2"
+                      }
+                    ],
+                    "id": 518,
+                    "name": "VariableDeclaration",
+                    "src": "514:4:2"
+                  }
+                ],
+                "id": 519,
+                "name": "ParameterList",
+                "src": "503:16:2"
+              },
+              {
+                "attributes": {
+                  "statements": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 520,
+                "name": "Block",
+                "src": "520:1167:2"
+              }
+            ],
+            "id": 521,
+            "name": "FunctionDefinition",
+            "src": "457:1230:2"
+          }
+        ],
+        "id": 522,
+        "name": "ContractDefinition",
+        "src": "25:1664:2"
+      }
+    ],
+    "id": 523,
+    "name": "SourceUnit",
+    "src": "0:1690:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.19+commit.c4cbbb05.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "1.0.1",
+  "updatedAt": "2018-03-21T18:24:21.705Z"
+}
