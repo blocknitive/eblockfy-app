@@ -1,19 +1,15 @@
-pragma solidity ^0.4.16;
+pragma solidity ^0.4.19;
 
 contract UserCertificates {
 	address private owner;
 
-	struct Person {
-		address direction;
+	mapping (bytes32 => bytes32[]) certificates;
+
+	function addCertificate(bytes32 dniUser, bytes32 certificateHash) public {
+		certificates[dniUser].push(certificateHash);
 	}
 
-	mapping (string => Person) certificates;
-
-	function addCertificate(string ipfsHash) public payable {
-		certificates[ipfsHash] = Person({direction:msg.sender});
-	}
-
-	function getCertificate(string certificate) constant returns (address) {
-		return certificates[certificate].direction;
+	function getCertifications(bytes32 dni) public constant returns (bytes32[]) {
+		return certificates[dni];
 	}
 }

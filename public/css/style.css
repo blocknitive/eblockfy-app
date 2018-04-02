@@ -1058,3 +1058,29 @@ body {
 .message.success a {
   color: #2a6496 !important;
 }
+
+.nav-tabs li.ui-state-active, .nav-tabs li:hover {
+  background: #fff;
+}
+
+.nav-tabs li:focus, .nav-tabs li:hover,
+.nav-tabs li a:focus {
+  border: 0;
+  text-decoration: none;
+}
+
+#imaginary_container{
+  margin-top:20px; /* Don't copy this */
+}
+.stylish-input-group .input-group-addon{
+  background: white !important; 
+}
+.stylish-input-group .form-control{
+border-right:0; 
+box-shadow:0 0 0; 
+border-color:#ccc;
+}
+.stylish-input-group button{
+  border:0;
+  background:transparent;
+}

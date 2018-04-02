@@ -6,7 +6,8 @@ const IPFS = require('ipfs');
 const node = new IPFS();
 var bodyParser = require('body-parser');
 var path = require('path');
-var moment = require('moment');;
+var moment = require('moment');
+var bs58 = require('bs58');
 
 // support json encoded bodies
 app.use(bodyParser.json()); 
@@ -33,13 +34,24 @@ app.post('/uploadJson', function (req, res) {
   var data = JSON.parse(req.body.json);
   data.certificationDate = moment(new Date()).format("DD/MM/YYYY").toString();
   node.files.add([new Buffer(JSON.stringify(data))], (err, ipfsResponse) => {
-    res.send(ipfsResponse)
+    var h = bs58.decode(ipfsResponse[0].path).toString('hex').replace(/^1220/, '');
+    if (h.length != 64) {
+        console.log('invalid ipfs format', ipfs_hash, h);
+        return null;
+    }
+    res.send('0x' + h);
+    //El hash es un base58 que pasamos a hexadecimal.
+    //Nos cargamos los 4 primeros caracters que se corresponden a 0x12 para el tipo de hash y 0x20 a la longitud.
+    //Estos valores para este tipo de ficheros en IPFS siempre son iguales.
   });
 })
 
-app.get('/certificated/:hashCertificated/:txId?', function (req, res) {
-  
-  node.files.cat(req.params.hashCertificated, function (err, file) {
+app.get('/certificated/:partialHashCertificated/:txId?', function (req, res) {
+  //Añadimos los 4 caracteres que hemos quitado antes que siempre para este caso van a ser 1220 (explicado en el comentario donde se quitan)
+  var buf = new Buffer(req.params.partialHashCertificated.replace(/^0x/, '1220'), 'hex')
+  const address = bs58.encode(buf)
+
+  node.files.cat(address, function (err, file) {
     if (err) {
       res.send('There is a no valid hash for get the Certificate', 500);
     }

@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.3/css/tether.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
@@ -65,55 +67,92 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">Creación de certificado</div>
-                    <div class="panel-body">
-                        <form id="form-certification">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <p>A continuación podrás insertar la infromación del curso</p>
-                                    <label>Nombre del curso:</label>
-                                    <input class="form-control" name="courseName" id="courseName" value="Introducción práctica a Blockchain para desarrolladores"
-                                        required>
-                                    <label>Tipo de certificado:</label>
-                                    <input class="form-control" name="courseCertificated" id="courseCertificated" value="Certificado de Asistencia" required>
-                                    <label>Fechas del curso:</label>
-                                    <input class="form-control" name="courseDate" id="courseDate" value="los días 21,22,23 y 24 de Enero 2017" required>
-                                </div>
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">Información del usuario</div>
-                                    <div class="panel-body">
-                                        <p>A continuación podrás insertar la información del alumno.</p>
+                <div id="tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <h3>
+                                <a class="nav-link active" href="#certification-form">Crear certificado</a>
+                            </h3>
+                        </li>
+                        <li class="nav-item">
+                            <h3>
+                                <a class="nav-link" href="#certification-search">Buscar certificado</a>
+                            </h3>
+                        </li>
+                    </ul>
+                    <div id="certification-form" class="panel panel-default">
+                        <div class="panel-body">
+                            <form id="form-certification">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <div class="form-group">
+                                        <p>A continuación podrás insertar la infromación del curso</p>
+                                        <label>Nombre del curso:</label>
+                                        <input class="form-control" name="courseName" id="courseName" value="Introducción práctica a Blockchain para desarrolladores"
+                                            required>
+                                        <label>Tipo de certificado:</label>
+                                        <input class="form-control" name="courseCertificated" id="courseCertificated" value="Certificado de Asistencia" required>
+                                        <label>Fechas del curso:</label>
+                                        <input class="form-control" name="courseDate" id="courseDate" value="los días 21,22,23 y 24 de Enero 2017" required>
+                                    </div>
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">Información del usuario</div>
+                                        <div class="panel-body">
+                                            <p>A continuación podrás insertar la información del alumno.</p>
 
-                                        <div class="form-group">
-                                            <label>Nombre del alumno</label>
-                                            <input class="form-control" name="alumnName" id="alumnName" value="Guillermo Lapuente" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>DNI/NIE del alumno</label>
-                                            <input class="form-control" name="alumnId" id="alumnId" value="XXXXXXXX-A" required>
+                                            <div class="form-group">
+                                                <label>Nombre del alumno</label>
+                                                <input class="form-control" name="alumnName" id="alumnName" value="Guillermo Lapuente" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>DNI/NIE del alumno</label>
+                                                <input class="form-control" name="alumnId" id="alumnId" value="XXXXXXXX-A" required>
+                                            </div>
                                         </div>
                                     </div>
+                                    <button type="submit" class="btn btn-primary">Crear certificado</button>
+                                    <div id="certificate-link-container" class="message success" style="display:none;">
+                                        <p>
+                                            <strong>¡Certificado creado! </strong> ¡Puedes verlo
+                                            <a id="certificate-link" target="_blank" href="#">aquí</a>!</p>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Crear certificado</button>
-                                <div id="certificate-link-container" class="message success" style="display:none;">
-                                    <p>
-                                        <strong>¡Certificado creado! </strong> ¡Puedes verlo
-                                        <a id="certificate-link" target="_blank"
-                                            href="#">aquí</a>!</p>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="certification-search" class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div id="imaginary_container">
+                                    <label>DNI/NIE del alumno:</label>
+                                    <div class="input-group stylish-input-group">
+                                        <input id="search-input" type="text" class="form-control" placeholder="Search">
+                                        <span class="input-group-addon">
+                                            <button type="submit" id="search-button">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="">
+                                        <h3>Certificados del Alumno:</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table id="certificates-result" class="table table-hover" style="display:none">
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- /.panel-->
         </div>
         <!-- /.row -->
-
     </div>
-
 </body>
 
 </html>

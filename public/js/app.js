@@ -1,42 +1,46 @@
 var abiArray = [
     {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "dniUser",
+                "type": "bytes32"
+            },
+            {
+                "name": "certificateHash",
+                "type": "bytes32"
+            }
+        ],
+        "name": "addCertificate",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "constant": true,
         "inputs": [
             {
-                "name": "",
-                "type": "address"
+                "name": "dni",
+                "type": "bytes32"
             }
         ],
-        "name": "certificates",
+        "name": "getCertifications",
         "outputs": [
             {
                 "name": "",
-                "type": "string"
+                "type": "bytes32[]"
             }
         ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "ipfsHash",
-                "type": "string"
-            }
-        ],
-        "name": "addCertificate",
-        "outputs": [],
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "function"
     }
 ]
-var contractAddress = '0x5133015b67a664cc526b59c8b6b735a10e16cedd'
+
+var contractAddress = '0x01e38e411cd6af381b8851ef36c0103a7538a492'
 
 $(document).ready(function () {
-
     if (typeof web3 === "undefined" || !web3.currentProvider.isMetaMask) {
         $('#login-disabled-text').append('No se ha detectado la extensión MetaMask activa. Por favor instala la extensión <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">aquí</a> y refresca la página.')
         $('#login-disabled-text').show();
@@ -52,6 +56,7 @@ $(document).ready(function () {
     $('#form-login').on('submit', function (e) {
         e.preventDefault();
         $("#login-panel").hide();
+        $("#tabs").tabs();
         $("#main-panel").show();
     });
 
@@ -66,15 +71,30 @@ $(document).ready(function () {
         });
         makeCertification(indexed_array);
     });
+
+    $('#search-input').on('keyup', function (event) {
+        if (event.keyCode === 13) {
+            submitSearchForm();
+        }
+    });
+
+    $('#search-button').on('click', function (event) {
+        submitSearchForm();
+    })
+
+    //Generating instances from our Smart Contract for listen events and call methods.
+    CertificationContract = web3.eth.contract(abiArray);
+    certification = CertificationContract.at(contractAddress);
 })
 
 var txId = "";
 var ipfsHash = "";
 
 function makeCertification(formDataJson) {
+    var dniUser = $("#alumnId").val();
     var callback = function (response) {
-        ipfsHash = response[0].hash;
-        makeTransaction(response[0].hash)
+        ipfsHash = response;
+        makeTransaction(dniUser, ipfsHash)
     }
     sendFileToIPFS(formDataJson, callback);
 }
@@ -89,13 +109,74 @@ function sendFileToIPFS(data, callback) {
     });
 }
 
-function makeTransaction(fileHash) {
-    web3.eth.contract(abiArray).at(contractAddress).addCertificate(fileHash,
-        function (error, hash) {
+function makeTransaction(dniUser, fileHash) {
+    console.log(fileHash)
+    certification.addCertificate(dniUser, fileHash,
+        { gas: 1000000 },
+        function (error, txId) {
             if (error) { alert("No se ha podido realizar la transacción contra la blockchain") }
-            txId = hash;
 
-            $("#certificate-link-container").show();
-            $("#certificate-link").attr("href", "/certificated/" + ipfsHash + "/" + txId)
+            waitForReceipt(txId, function () {
+                console.log("Transaction succeeded.");
+                $("#certificate-link-container").show();
+                $("#certificate-link").attr("href", "/certificated/" + fileHash + "/" + txId)
+            });
         });
+}
+
+function waitForReceipt(hash, cb) {
+    web3.eth.getTransactionReceipt(hash, function (err, receipt) {
+        if (err) {
+            alert("No se ha podido realizar la transacción contra la blockchain")
+            console.log(err);
+        }
+
+        if (receipt !== null) {
+            // Transaction went through
+            if (cb) {
+                cb(receipt);
+            }
+        } else {
+            // Try again in 1 second
+            window.setTimeout(function () {
+                waitForReceipt(hash, cb);
+            }, 1000);
+        }
+    });
+}
+
+function submitSearchForm() {
+    let searchParam = $('#search-input').val();
+    $('#certificates-result > tbody').empty();
+    certification.getCertifications(searchParam,
+        function (error, response) {
+            if (error) {
+                $('#certificates-result > tbody').append(`
+                <tr>
+                <th>No se ha podido establecer conexión con el contrato</th>
+                </tr>
+                `);
+            }
+
+            if (response.length > 0) {
+                let cont = 0
+                response.forEach(element => {
+                    cont++;
+                    $('#certificates-result > tbody').append(`
+                        <tr>
+                        <th><a target="_blank" href="/certificated/${element}">Certificado ${cont}</a></th>
+                        </tr>
+                        `)
+                    $('#certificates-result').show();
+                });
+            } else {
+                $('#certificates-result > tbody').append(`
+                        <tr>
+                        <th>No se han encontrado resultado para ese DNI</th>
+                        </tr>
+                        `);
+                $('#certificates-result').show();
+            }
+        });
+
 }
