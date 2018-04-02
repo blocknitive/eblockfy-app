@@ -1071,6 +1071,7 @@ body {
 
 #imaginary_container{
   margin-top:20px; /* Don't copy this */
+  margin-bottom: 20px;
 }
 .stylish-input-group .input-group-addon{
   background: white !important; 

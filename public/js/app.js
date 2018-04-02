@@ -157,7 +157,7 @@ function submitSearchForm() {
                 </tr>
                 `);
             }
-
+            $("#search-result").show();
             if (response.length > 0) {
                 let cont = 0
                 response.forEach(element => {
