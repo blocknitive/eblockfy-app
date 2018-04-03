@@ -85,6 +85,10 @@ $(document).ready(function () {
     //Generating instances from our Smart Contract for listen events and call methods.
     CertificationContract = web3.eth.contract(abiArray);
     certification = CertificationContract.at(contractAddress);
+
+    if (typeof certificationList !== 'undefined') {
+        submitSearchForm();
+    }
 })
 
 var txId = "";
@@ -146,7 +150,13 @@ function waitForReceipt(hash, cb) {
 }
 
 function submitSearchForm() {
-    let searchParam = $('#search-input').val();
+    let searchParam;
+    if (typeof certificationList !== 'undefined') {
+        searchParam = alumnId;
+    } else {
+        searchParam = $('#search-input').val();
+    }
+    console.log(searchParam)
     $('#certificates-result > tbody').empty();
     certification.getCertifications(searchParam,
         function (error, response) {
@@ -164,7 +174,11 @@ function submitSearchForm() {
                     cont++;
                     $('#certificates-result > tbody').append(`
                         <tr>
-                        <th><a target="_blank" href="/certificated/${element}">Certificado ${cont}</a></th>
+                        <th>
+                            <div><h4><a target="_blank" href="/certificated/${element}">Certificado ${cont}</a></h4>
+                            <iframe height="400" width="100%" src="/certificated/${element}"></iframe>
+                            </div>
+                        </th>
                         </tr>
                         `)
                     $('#certificates-result').show();

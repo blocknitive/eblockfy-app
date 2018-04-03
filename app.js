@@ -61,6 +61,14 @@ app.get('/certificated/:partialHashCertificated/:txId?', function (req, res) {
   })
 });
 
+app.get('/certificates/:alumnId', function (req, res) {
+  let data = {};
+  data.alumnId = req.params.alumnId;
+  res.render('certificates', data)
+});
+
+
+
 app.get('*', function(req, res){
   res.send('what???', 404);
 });
