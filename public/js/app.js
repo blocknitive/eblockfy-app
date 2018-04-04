@@ -94,8 +94,19 @@ $(document).ready(function () {
 var txId = "";
 var ipfsHash = "";
 
+function setSubmitingStatus() {
+    $("#spinner").show();
+    $("#submit-certificate").prop( "disabled", true );
+}
+
+function setInitialStatus() {
+    $("#spinner").hide();
+    $("#submit-certificate").prop( "disabled", false );
+}
+
 function makeCertification(formDataJson) {
     var dniUser = $("#alumnId").val();
+    setSubmitingStatus()
     var callback = function (response) {
         ipfsHash = response;
         makeTransaction(dniUser, ipfsHash)
@@ -124,6 +135,7 @@ function makeTransaction(dniUser, fileHash) {
                 console.log("Transaction succeeded.");
                 $("#certificate-link-container").show();
                 $("#certificate-link").attr("href", "/certificated/" + fileHash + "/" + txId)
+                setInitialStatus()
             });
         });
 }
