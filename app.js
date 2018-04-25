@@ -119,7 +119,7 @@ app.get('/certificates/:alumnId', function (req, res) {
     from: '0x3473Faf2bD7C9d52C5E146Cb6554b45D28BD2d89'
   };
 
-  contract.methods.getCertifications(web3.utils.asciiToHex('47285450-A')).call(transactionObject,
+  contract.methods.getCertifications(web3.utils.asciiToHex(data.alumnId)).call(transactionObject,
     function (error, response) {
       console.log(error, response)
       data.response = response;
