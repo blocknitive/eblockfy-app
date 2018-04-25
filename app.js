@@ -10,10 +10,10 @@ var moment = require('moment');
 var bs58 = require('bs58');
 
 // support json encoded bodies
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
 // support encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -36,8 +36,8 @@ app.post('/uploadJson', function (req, res) {
   node.files.add([new Buffer(JSON.stringify(data))], (err, ipfsResponse) => {
     var h = bs58.decode(ipfsResponse[0].path).toString('hex').replace(/^1220/, '');
     if (h.length != 64) {
-        console.log('invalid ipfs format', ipfs_hash, h);
-        return null;
+      console.log('invalid ipfs format', ipfs_hash, h);
+      return null;
     }
     res.send('0x' + h);
     //El hash es un base58 que pasamos a hexadecimal.
@@ -64,14 +64,75 @@ app.get('/certificated/:partialHashCertificated/:txId?', function (req, res) {
 app.get('/certificates/:alumnId', function (req, res) {
   let data = {};
   data.alumnId = req.params.alumnId;
-  res.render('certificates', data)
+
+  var Web3 = require("web3");
+
+  var web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/F2AHWokuuOyOwSLf7lfb"));
+  console.log(web3.eth)
+
+  var abiArray = [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "dniUser",
+          "type": "bytes32"
+        },
+        {
+          "name": "certificateHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "addCertificate",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "dni",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getCertifications",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+
+  var contractAddress = '0x01e38e411cd6af381b8851ef36c0103a7538a492';
+
+
+  const contract = new web3.eth.Contract(abiArray, contractAddress);
+
+  const transactionObject = {
+    from: '0x3473Faf2bD7C9d52C5E146Cb6554b45D28BD2d89'
+  };
+
+  contract.methods.getCertifications(web3.utils.asciiToHex('47285450-A')).call(transactionObject,
+    function (error, response) {
+      console.log(error, response)
+      data.response = response;
+      res.render('certificates', data)
+    });
+
 });
 
 
 
-app.get('*', function(req, res){
+app.get('*', function (req, res) {
   res.send('what???', 404);
 });
 
-app.listen(3000, function () { console.log("Listen on http://localhost:3000")})
+app.listen(3000, function () { console.log("Listen on http://localhost:3000") })
 

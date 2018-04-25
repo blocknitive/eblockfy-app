@@ -17,7 +17,7 @@
         var alumnId = '<%= alumnId %>';
         var certificationList = true;
     </script>
-    <script src="/js/app.js"></script>
+    <!-- <script src="/js/app.js"></script> -->
     <link href="/css/style.css" rel="stylesheet">
 </head>
 
@@ -67,6 +67,34 @@
         </div>
         <!-- /.row -->
     </div>
+    <script type='text/javascript'>
+        var response =<%-JSON.stringify(response)%>;
+        console.log(response);
+    $("#search-result").show();
+            if (response.length > 0) {
+                let cont = 0
+                response.forEach(element => {
+                    cont++;
+                    $('#certificates-result > tbody').append(`
+                        <tr>
+                        <th>
+                            <div><h4><a target="_blank" href="/certificated/${element}">Certificado ${cont}</a></h4>
+                            <iframe height="400" width="100%" src="/certificated/${element}"></iframe>
+                            </div>
+                        </th>
+                        </tr>
+                        `)
+                    $('#certificates-result').show();
+                });
+            } else {
+                $('#certificates-result > tbody').append(`
+                        <tr>
+                        <th>No se han encontrado resultado para ese DNI</th>
+                        </tr>
+                        `);
+                $('#certificates-result').show();
+            }
+    </script>
 </body>
 
 </html>
