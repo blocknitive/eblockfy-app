@@ -1,114 +1,162 @@
-//Dirección donde se almacenan los contratos
+//Dirección del contrato (en Ropsten) donde se almacenan los certificdos
 var certificatesContract = "0x8cdaf0cd259887258bc13a92c0a6da92698644c0";
 
-//ABI del contrato
+//Dirección del contrato (en Ropsten) con las funciones a ejecutar 
+var logicContract = "0xf25186b5081ff5ce73482ad761db0eb0d25abfbf";
+
+//ABI del contrato con la lógica
 var abiArray = [
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "idCertificate",
+				"type": "bytes32"
+			}
+		],
+		"name": "getSender",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_idCertificate",
+				"name": "_priceInWei",
+				"type": "uint256"
+			}
+		],
+		"name": "changeCost",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "idCertificate",
 				"type": "bytes32"
 			}
 		],
-		"name": "regCertificate",
+		"name": "addCertificate",
 		"outputs": [],
 		"payable": true,
 		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
-				"name": "_userCertificatesAddress",
+				"name": "idCertificate",
+				"type": "bytes32"
+			}
+		],
+		"name": "deleteCertificate",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getPriceWei",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "idCertificate",
+				"type": "bytes32"
+			}
+		],
+		"name": "getCertificate",
+		"outputs": [
+			{
+				"name": "",
 				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "_priceInWei",
+				"type": "uint256"
 			}
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_idCertificate",
-				"type": "bytes32"
-			}
-		],
-		"name": "giveSender",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_idCertificate",
-				"type": "bytes32"
-			}
-		],
-		"name": "isMyCertificate",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
 	}
 ]
 
-//Address del contracto en la blockchain
-var logicContract = '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf'
-
-const keyLength = 64;
-
-$(document).ready(function () {
-    web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/")); //EL contrato tiene que estar guardado en Ropsten
+//***********************************************************************************/
+//Se ejecuta al acceder a certificates.html
+//Ejemplo: certificates.html?a4516018d6b0313a03a69130356f23a168c0ab10
+//***********************************************************************************/
+$(document).ready(function() {
+    //Conectamos con el nodo de Ropsten para obtener información (no hace falta wallet)
+    web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/"));
     CertificationContract = web3.eth.contract(abiArray);
     certification = CertificationContract.at(logicContract);
+    //Cortamos la URL para obtener la clave
     var url = document.URL.split("?");
     var data = renderKey(url[1].slice(30));
-    validateCertificate(data, function(res){
-        console.log("Estos son los datos: " + JSON.stringify(res));
+    validateCertificate(data, function(res) {
+        console.log("Estos son los datos: " + JSON.stringify(res)); //Aquí no entra
     }); 
 })
 
-function validateCertificate(key){
-    console.log("key es: " + key);
-    certification.isMyCertificate("0x0" + key,
+//***********************************************************************************/
+// Función para validar que el certificado está en la blockchain
+//***********************************************************************************/
+function validateCertificate(key) {
+    certification.isMyCertificate("0x" + key,
     function (error, response) {
-        console.log("Response es: " + response);
         if (error) {
             alert("No se ha podido establecer conexión con el contrato");
         }       
-        if (response) {
+        else if (response) {
             alert("El certificado es válido!");
-            console.log("esta es la clave de tu certificado: " + document.URL.split("?")[1]);
-            //document.getElementById("encryptedHex").innerHTML = document.URL.split("?")[1];
+            console.log("Esta es la clave de tu certificado: " + document.URL.split("?")[1]);
+            //Desencriptamos la información y la guardamos en las variables del html
             var data = decryptData(document.URL.split("?")[1]);
-            console.log("el dato desencriptado es: " + data);
             data = JSON.parse(data);
             document.getElementById("alumnName").innerHTML = data["alumnName"];
             document.getElementById("courseName").innerHTML = data["courseName"];
             document.getElementById("courseDate").innerHTML = data["courseDate"];
             document.getElementById("courseCertificated").innerHTML = data["courseCertificated"];
-            var d = new Date();
-            var n = d.getTime();
-            document.getElementById("certificationDate").innerHTML = n;
+            var time = new Date().getTime();
+            var date = new Date(time);
+            document.getElementById("certificationDate").innerHTML = date;
+            //****************************FALTA AÑADIR EL ENLACE A LA TRANSACCIÓN DE ROPSTEIN***************************/
             return data;
-        } else {
-            // Debería redirigir al la página inicial
+        } 
+        else {
+            //Debería redirigir al la página inicial
             alert("El certificado no es válido");
             return "El certificado no es válido";
         }
@@ -130,8 +178,12 @@ function decryptData(data){
     // "Text may be any length you wish, no padding is required."
 }
 
+//********************************************************************************************************* */
 //Como máximo podemos coger 64 letras de informacion (estamos usando un bytes32 en nuestro smart contract)
 //Menos probabilidad de equivalencia cuanto mayor sea el byte del smart contract
+//********************************************************************************************************* */
+
+const keyLength = 64;
 function renderKey(encrypted) {
     var key = "";
     var jump = Math.floor(encrypted.length / keyLength);

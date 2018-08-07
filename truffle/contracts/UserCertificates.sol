@@ -1,8 +1,6 @@
 pragma solidity ^0.4.20;
 
 //Este contrato hace de almacenamiento de certificados
-//Hay que añadir una funcion para ver el coste, y que el owner sea el creador.
-//Falta añadir función borrar
 contract UserCertificates {
     
     //bytes32 acepta 64 digitos en hexadecimal
@@ -10,7 +8,7 @@ contract UserCertificates {
     
     address owner;
     
-    uint public priceInWei;
+    uint private priceInWei;
     
     constructor(uint _priceInWei) public {
         owner = msg.sender;
@@ -30,14 +28,23 @@ contract UserCertificates {
         priceInWei = _priceInWei;
     }
 
-    function getCertificate(bytes32 idCertificate) public view returns (bool) {
-        if(certificates[idCertificate] != 0x0000000000000000000000000000000000000000)//modificar
-            return true;
-        return false;
+    function getCertificate(bytes32 idCertificate) public view returns (address) {
+        return certificates[idCertificate];
     }
 
     function getSender(bytes32 idCertificate) public view returns (address) {
         return certificates[idCertificate];
+    }
+
+    function deleteCertificate(bytes32 idCertificate)public {
+        if(certificates[idCertificate] != address(0x0)){ 
+            revert();
+        }
+        certificates[idCertificate] = address(0x0);
+    }
+
+    function getPriceWei() public view returns (uint) {
+        return priceInWei;
     }
 }
 
