@@ -1,8 +1,10 @@
-
-//Dirección donde se almacenan los contratos
+//Dirección del contrato (en Ropsten) donde se almacenan los certificdos.
 var certificatesContract = "0x8cdaf0cd259887258bc13a92c0a6da92698644c0";
 
-//ABI del contrato
+//Dirección del contrato (en Ropsten) con las funciones a ejecutar.
+var logicContract = "0xf12b5dd4ead5f743c6baa640b0216200e89b60da";
+
+//ABI del contrato con la lógica.
 var abiArray = [
 	{
 		"constant": false,
@@ -17,17 +19,6 @@ var abiArray = [
 		"payable": true,
 		"stateMutability": "payable",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"name": "_userCertificatesAddress",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	},
 	{
 		"constant": true,
@@ -60,43 +51,43 @@ var abiArray = [
 		"outputs": [
 			{
 				"name": "",
-				"type": "bool"
+				"type": "address"
 			}
 		],
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "_userCertificatesAddress",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	}
 ]
 
-//Address del contracto en la blockchain
-var logicContract = '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf'
 
-// Longitud del ID del certificado que se registrará en Ethereum
-const keyLength = 64;
 
-// Funciones a ejecutar cuando se carue el documento
+
+
+//***********************************************************************************/
+//Se ejecuta al acceder a la aplicación.
+//***********************************************************************************/
+
 $(document).ready(function () {
-    // if (typeof web3 === "undefined" || !web3.currentProvider.isMetaMask) {
-    //     $('#login-disabled-text').append('NNNNNo se ha detectado la extensión MetaMask activa. Por favor instala la extensión <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">aquí</a> y refresca la página.')
-    //     $('#login-disabled-text').show();
-    //     $('#login-button').attr('disabled', 'disabled');
-    // }
-
-    // if (web3.eth.coinbase == null) {
-    //      $('#login-disabled-text').append('No se ha detectado una cuenta registrada en la extensión MetaMask. Por favor entra o crea una cuenta en MetaMask sobre la red en la que desees realizar las operaciones y refresca la página.')
-    //      $('#login-disabled-text').show();
-    //      $('#login-button').attr('disabled', 'disabled');
-    // }
-
-     $('#form-login').on('submit', function (e) {
-         e.preventDefault();
+     $('#form-login').on('submit', function (response) {
+         response.preventDefault();
          $("#login-panel").hide();
          $("#tabs").tabs();
          $("#main-panel").show();
      });
 
-    $('#form-certification').on('submit', function (e) {
+    $('#form-certification').on('submit', function (response) {
         if (typeof web3 === "undefined" || !web3.currentProvider.isMetaMask) {
             alert('No se ha detectado la extensión MetaMask activa. Por favor instala la extensión <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">aquí</a> y refresca la página.');
         }
@@ -104,11 +95,9 @@ $(document).ready(function () {
             alert('No se ha detectado una cuenta registrada en la extensión MetaMask. Por favor entra o crea una cuenta en MetaMask sobre la red en la que desees realizar las operaciones y refresca la página.');
         }
         else{
-            e.preventDefault()
-
+            response.preventDefault()
             var unindexed_array = $(this).serializeArray();
             var indexed_array = {};
-
             $.map(unindexed_array, function (n, i) {
                 indexed_array[n['name']] = n['value'];
             });
@@ -147,27 +136,36 @@ function setInitialStatus() {
 }
 
 
+
+
+
+//***********************************************************************************/
+// Función que crea el certificado
+//***********************************************************************************/
+
 // Funcion que registra el certificado
 function makeCertification(formDataJson) {
     setSubmitingStatus();
-    var callback = function (response) {
-        encrypted = response;//Borrar
-    }
     // Encriptamos los datos del certificado
-    encrypted = encryptData(formDataJson, callback);
-    // Las 30 primeras letras del AES (8c7ff6b8d251ca98d81a9915903b12) coiniciden siempre con lo que no cogeremos esos datos.
+    encrypted = encryptData(formDataJson);
+    // Las 30 primeras letras del AES (8c7ff6b8d251ca98d81a9915903b12) coiniciden por la info del JSON con lo que no cogeremos esos datos.
     key = renderKey(encrypted.slice(30));
     // Creamos la transaccion 
-    makeTransaction(key, encrypted, callback);
-    console.log("El id del certificado es: " + key);
+    makeTransaction(key, encrypted);
     console.log("La clave de tu certificado es: " + encrypted);
 }
 
+
+
+
+
+//***********************************************************************************/
+// Se ejecuta cuando se quiere realizar la transacción
+//***********************************************************************************/
+
 function makeTransaction(key, encrypted) {
-    // Le añadimos el 0 delante porque Remix lo hace automaticamente cuando le metemos un churro de 64 caracteres
-    // (no sé por qué) y así podemos testearlo.
-    certification.regCertificate("0x0"+key,
-        { gas: 10000000, value: 100000000000000000 },
+    certification.regCertificate("0x"+key,
+        { gas: 10000000, value: 100000000000000000 }, //***********Hay que meter el precio del certificado*********** */
         function (error, txId) {
             if (error) { alert("No se ha podido realizar la transacción contra la blockchain") }
             waitForReceipt(txId, function () {
@@ -178,6 +176,14 @@ function makeTransaction(key, encrypted) {
             });
         });
 }
+
+
+
+
+
+//***********************************************************************************/
+// ????????????????????????????
+//***********************************************************************************/
 
 function waitForReceipt(hash, cb) {
     web3.eth.getTransactionReceipt(hash, function (err, receipt) {
@@ -199,8 +205,15 @@ function waitForReceipt(hash, cb) {
     });
 }
 
-// Funcion para encriptar con AES
-function encryptData(data){
+
+
+
+
+//***********************************************************************************/
+// Función para encriptar la información del certificado.
+//***********************************************************************************/
+
+function encryptData(data) {
     data = JSON.stringify(data);
     // Se puede generar la key con https://www.npmjs.com/package/scrypt-js
     // An example 128-bit key (16 bytes * 8 bits/byte = 128 bits)
@@ -213,10 +226,17 @@ function encryptData(data){
     // To print or store the binary data, you may convert it to hex
     var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
     return encryptedHex;
-  }
+}
 
-  // Funcion para desencriptar con AES
-function decryptData(data){
+
+
+
+
+//***********************************************************************************/
+// Función para desencriptar la información del certificado.
+//***********************************************************************************/
+
+function decryptData(data) {
     // When ready to decrypt the hex string, convert it back to bytes
     var encryptedBytes = aesjs.utils.hex.toBytes(data);
     // The key
@@ -231,20 +251,38 @@ function decryptData(data){
     // "Text may be any length you wish, no padding is required."
 }
 
-// Como máximo podemos coger 64 letras de informacion (estamos usando el type bytes32 en nuestro smart contract)
-// Algoritmo para crear el ID del certificado (es bastante mejorable, por ejemplo, generando un ID del nombre de 
-// usuario y otro ID del nombre del curso y unirlos sería más eficaz)
+
+
+
+
+//********************************************************************************************************* */
+//Función para obtener la clave del certificado.
+//Como máximo podemos coger 64 letras de informacion (estamos usando el tipo bytes32 en nuestro smart contract)
+//Menos probabilidad de coincidencia con otro ctificado cuanto mayor sea el byte del smart contract.
+//********************************************************************************************************* */
+
+// Longitud del ID del certificado que se registrará en Ethereum
+const keyLength = 64;
+
 function renderKey(encrypted) {
     var key = "";
     var jump = Math.floor(encrypted.length / keyLength);
     var selected;
 
-    for (counter = 1; counter < keyLength;counter++){
+    for (counter = 1; counter < keyLength;counter++) {
         selected = jump*counter;
         key = key.concat(encrypted.slice(selected, selected+1));
     }
     return key;
 }
+
+
+
+
+
+//***********************************************************************************/
+// Esta función se ejecuta cuando se solicita una búsqueda
+//***********************************************************************************/
 
 function submitSearchForm() {
     let searchParam;

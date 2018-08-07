@@ -9,7 +9,7 @@ contract LogicCertificates {
         userCertificates = UserCertificates(_userCertificatesAddress);
     }
     
-    function isMyCertificate(bytes32 _idCertificate) public view returns(bool) {
+    function isMyCertificate(bytes32 _idCertificate) public view returns(address) {
         return userCertificates.getCertificate(_idCertificate);
     }
     
@@ -18,7 +18,6 @@ contract LogicCertificates {
     }
     
     function regCertificate(bytes32 _idCertificate) public payable{
-        userCertificates.addCertificate.value(msg.value)(_idCertificate);
-        
+        userCertificates.addCertificate.value(msg.value)(_idCertificate);    
     }
 }
