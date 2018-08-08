@@ -1,4 +1,4 @@
-pragma solidity ^0.4.20;
+pragma solidity ^0.4.18;
 
 //Este contrato hace de almacenamiento de certificados
 contract UserCertificates {
@@ -6,13 +6,24 @@ contract UserCertificates {
     //bytes32 acepta 64 digitos en hexadecimal
     mapping (bytes32 => address) certificates;
     
-    address owner;
+    address private owner;
     
     uint private priceInWei;
     
     constructor(uint _priceInWei) public {
         owner = msg.sender;
         priceInWei = _priceInWei;
+    }
+    
+    function setOwner(address _owner) public {
+        if(msg.sender != owner){ 
+            revert();
+        }
+        owner = _owner;
+    }
+    
+    function getOwner() public view returns(address) {
+        return owner;
     }
 
     function addCertificate(bytes32 idCertificate) public payable {
@@ -23,8 +34,10 @@ contract UserCertificates {
         certificates[idCertificate] = msg.sender;
     }
     
-    function changeCost(uint _priceInWei) public{
-        require(owner == msg.sender);
+    function changePrice(uint _priceInWei) public {
+        if(msg.sender != owner){ 
+            revert();
+        }
         priceInWei = _priceInWei;
     }
 

@@ -1,8 +1,8 @@
 //Dirección del contrato (en Ropsten) donde se almacenan los certificdos.
-var certificatesContract = "0x8cdaf0cd259887258bc13a92c0a6da92698644c0";
+var certificatesContract = "0xb9037aa21827dac598082a3e50ebc06e141b1b32";
 
 //Dirección del contrato (en Ropsten) con las funciones a ejecutar.
-var logicContract = "0xf12b5dd4ead5f743c6baa640b0216200e89b60da";
+var logicContract = "0xc0ada7df9495b15adf25ad8926aef0fa88a3c015";
 
 //ABI del contrato con la lógica.
 var abiArray = [
@@ -19,6 +19,17 @@ var abiArray = [
 		"payable": true,
 		"stateMutability": "payable",
 		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "_userCertificatesAddress",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
 		"constant": true,
@@ -57,17 +68,6 @@ var abiArray = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"name": "_userCertificatesAddress",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	}
 ]
 

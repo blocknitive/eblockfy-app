@@ -1,12 +1,8 @@
-FROM ubuntu:16.04
+FROM nginx
 
-RUN apt-get update && apt-get install -y git
-RUN apt-get install -y nodejs
-RUN apt-get install -y npm
-RUN npm install -g http-server
-RUN ln -s /usr/bin/nodejs /usr/bin/node
+RUN apt-get update
+RUN apt-get install -y git
 RUN git clone https://github.com/jdiegosierra/eblockfy-app.git
+RUN mv eblockfy-app/* /usr/share/nginx/html
 
-WORKDIR ./eblockfy-app
-
-CMD ["http-server", "-s"] 
+EXPOSE 80:80

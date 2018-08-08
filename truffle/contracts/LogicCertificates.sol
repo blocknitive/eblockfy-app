@@ -1,6 +1,6 @@
-pragma solidity ^0.4.20;
+pragma solidity ^0.4.18;
 
-import "./UserCertificates.sol";
+import "github.com/jdiegosierra/eblockfy-app/truffle/contracts/UserCertificates.sol";
 
 contract LogicCertificates {
     UserCertificates userCertificates;
