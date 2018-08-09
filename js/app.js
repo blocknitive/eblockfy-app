@@ -1,8 +1,8 @@
 //Dirección del contrato (en Ropsten) donde se almacenan los certificdos.
-var certificatesContract = "0xb9037aa21827dac598082a3e50ebc06e141b1b32";
+var certificatesContract = "0x1d736755a085aa087660e7769b87d2a0929555f1";
 
 //Dirección del contrato (en Ropsten) con las funciones a ejecutar.
-var logicContract = "0xc0ada7df9495b15adf25ad8926aef0fa88a3c015";
+var logicContract = "0xf89a94d1020519996f11f38062f39ded3e2feb8c";
 
 //ABI del contrato con la lógica.
 var abiArray = [
@@ -14,11 +14,68 @@ var abiArray = [
 				"type": "bytes32"
 			}
 		],
-		"name": "regCertificate",
+		"name": "addCertificate",
 		"outputs": [],
 		"payable": true,
 		"stateMutability": "payable",
 		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_idCertificate",
+				"type": "bytes32"
+			}
+		],
+		"name": "deleteCertificate",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_newOwner",
+				"type": "address"
+			}
+		],
+		"name": "setOwner",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_priceInWei",
+				"type": "uint256"
+			}
+		],
+		"name": "setPrice",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "_userCertificatesAddress",
+				"type": "address"
+			},
+			{
+				"name": "_priceInWei",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
 		"constant": true,
@@ -28,11 +85,39 @@ var abiArray = [
 				"type": "bytes32"
 			}
 		],
-		"name": "giveSender",
+		"name": "getCertificateSender",
 		"outputs": [
 			{
 				"name": "",
 				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getOwner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getPriceInWei",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -51,23 +136,12 @@ var abiArray = [
 		"outputs": [
 			{
 				"name": "",
-				"type": "address"
+				"type": "bool"
 			}
 		],
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"name": "_userCertificatesAddress",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	}
 ]
 
@@ -164,15 +238,19 @@ function makeCertification(formDataJson) {
 //***********************************************************************************/
 
 function makeTransaction(key, encrypted) {
-    certification.regCertificate("0x"+key,
-        { gas: 10000000, value: 100000000000000000 }, //***********Hay que meter el precio del certificado*********** */
-        function (error, txId) {
-            if (error) { alert("No se ha podido realizar la transacción contra la blockchain") }
-            waitForReceipt(txId, function () {
-                console.log("Transactikeyon succeeded.");
-                $("#certificate-link-container").show();
-                $("#certificate-link").attr("href", "/certificate.html?" + encrypted);
-                setInitialStatus()
+    certification.getPriceInWei(
+        function(error, response)  {
+            alert("priceInWei es: " + response);
+            certification.addCertificate("0x"+key,
+            { gas: 3000000, value: response },
+            function (error, txId) {
+                if (error) { alert("No se ha podido realizar la transacción contra la blockchain") }
+                waitForReceipt(txId, function () {
+                    console.log("Transactikeyon succeeded.");
+                    $("#certificate-link-container").show();
+                    $("#certificate-link").attr("href", "/certificate.html?" + encrypted);
+                    setInitialStatus()
+                });
             });
         });
 }
