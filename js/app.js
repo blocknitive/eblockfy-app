@@ -226,7 +226,6 @@ function makeCertification(formDataJson) {
     key = renderKey(encrypted.slice(30));
     // Creamos la transaccion 
     makeTransaction(key, encrypted);
-    console.log("La clave de tu certificado es: " + encrypted);
 }
 
 
@@ -239,18 +238,19 @@ function makeCertification(formDataJson) {
 
 function makeTransaction(key, encrypted) {
     certification.getPriceInWei(
-        function(error, response)  {
-            alert("priceInWei es: " + response);
+        function(error, response) {
             certification.addCertificate("0x"+key,
             { gas: 3000000, value: response },
             function (error, txId) {
                 if (error) { alert("No se ha podido realizar la transacción contra la blockchain") }
-                waitForReceipt(txId, function () {
-                    console.log("Transactikeyon succeeded.");
-                    $("#certificate-link-container").show();
-                    $("#certificate-link").attr("href", "/certificate.html?" + encrypted);
-                    setInitialStatus()
-                });
+                else {
+                    waitForReceipt(txId, function () {
+                        window.location.href = "mailto:destinatario@correo.com?subject=Certificado&body=La clave de tu certificado es la siguiente: " + encrypted + " No pierdas la clave o perderás el certificado!%0D%0APuedes verificar tu certificado aquí: " + "http://localhost:80" + "/certificate.html?" + encrypted;
+                        $("#certificate-link-container").show();
+                        $("#certificate-link").attr("href", "/certificate.html?" + encrypted);
+                        setInitialStatus()
+                    });
+                }
             });
         });
 }
