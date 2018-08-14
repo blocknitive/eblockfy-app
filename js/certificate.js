@@ -162,7 +162,8 @@ $(document).ready(function() {
     certification = CertificationContract.at(logicContract);
     //Cortamos la URL para obtener la clave
     var url = document.URL.split("?");
-    var data = renderKey(url[1].slice(30));
+	var data = renderKey(url[1].slice(30));
+	var base_url = window.location.origin;
     validateCertificate(data, function(res) {
         console.log("Estos son los datos: " + JSON.stringify(res)); //Aquí no entra
     }); 
@@ -182,9 +183,23 @@ function validateCertificate(key) {
         if (error) {
             alert("No se ha podido establecer conexión con el contrato");
         }       
-        else if (response !== 0x0000000000000000000000000000000000000000) {
-            alert("El certificado es válido!");
-            console.log("Esta es la clave de tu certificado: " + document.URL.split("?")[1]);
+        else if (response != 0x0000000000000000000000000000000000000000) {
+			// Get the modal
+			var modal = document.getElementById('myModalVerified');
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+			modal.style.display = "block";
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+				modal.style.display = "none";
+			}	
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+			document.getElementById('server').innerHTML = window.location.origin;
             //Desencriptamos la información y la guardamos en las variables del html
             var data = decryptData(document.URL.split("?")[1]);
             data = JSON.parse(data);
@@ -195,12 +210,29 @@ function validateCertificate(key) {
             var time = new Date().getTime();
             var date = new Date(time);
             document.getElementById("certificationDate").innerHTML = date;
-            //****************************FALTA AÑADIR EL ENLACE A LA TRANSACCIÓN DE ROPSTEIN***************************/
+			//****************************FALTA AÑADIR EL ENLACE A LA TRANSACCIÓN DE ROPSTEIN***************************/
+			var certificado = document.getElementById('certificado');
+			certificado.style.display = "block";
             return data;
         } 
         else {
-            alert("El certificado no es válido");
-            window.location.href = "http://localhost:3000/";
+            // Get the modal
+			var modal = document.getElementById('myModalNotVerified');
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+			modal.style.display = "block";
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+				modal.style.display = "none";
+				window.location.href = window.location.origin + "/index.html";
+			}	
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+					window.location.href = window.location.origin + "/index.html";
+				}
+			}
             return "El certificado no es válido";
         }
     });

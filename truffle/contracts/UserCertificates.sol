@@ -8,12 +8,12 @@ contract UserCertificates {
     address private logicContract;
     
     modifier onlyOwner() {
-        require(msg.sender == owner);
+        require(msg.sender == owner, "Sender not authorized.");
         _;
     }
 
     modifier onlyLogicContract() {
-        require(msg.sender == logicContract);
+        require(msg.sender == logicContract, "Logic contract not authorized");
         _;
     }
     
@@ -21,7 +21,7 @@ contract UserCertificates {
         owner = msg.sender;
     }
     
-    function setOwner(address _newOwner) public onlyOwner {
+    function setOwner(address _newOwner) public onlyOwner { // debería haber seguridad para modificar el owner?
         owner = _newOwner;
     }
     

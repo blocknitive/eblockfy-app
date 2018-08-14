@@ -9,7 +9,7 @@ contract LogicCertificate {
     UserCertificates userCertificates;
     
     modifier onlyOwner() {
-        require(msg.sender == owner);
+        require(msg.sender == owner, "Sender not authorized.");
         _;
     }
     
@@ -36,7 +36,7 @@ contract LogicCertificate {
     }
     
     function addCertificate(bytes32 _idCertificate) public payable {
-        require(msg.value == priceInWei);
+        require(msg.value == priceInWei, "This action requires a correct value");
         userCertificates.getOwner().transfer(msg.value);
         userCertificates.addCertificate(_idCertificate, msg.sender);
     }
@@ -49,7 +49,7 @@ contract LogicCertificate {
         return (userCertificates.getCertificateSender(_idCertificate) != address(0x0));
     }
     
-    function deleteCertificate(bytes32 _idCertificate) public {
+    function deleteCertificate(bytes32 _idCertificate) public { //Debería haber seguridad para eliminar el certificado?
         userCertificates.addCertificate(_idCertificate, address(0x0));
     }
 }

@@ -239,13 +239,25 @@ function makeCertification(formDataJson) {
 function makeTransaction(key, encrypted) {
     certification.getPriceInWei(
         function(error, response) {
-            certification.addCertificate("0x"+key,
-            { gas: 3000000, value: response },
+            certification.addCertificate("0x"+key, { gas: 3000000, value: response, gasPrice: web3.toWei(1, 'gwei') },
             function (error, txId) {
-                if (error) { alert("No se ha podido realizar la transacción contra la blockchain") }
+                if (error) {  
+                    setInitialStatus()
+                    var modal = document.getElementById('myModalCancel');
+                    var span = document.getElementsByClassName("close")[0];
+                    modal.style.display = "block";
+                    span.onclick = function() {
+                        modal.style.display = "none";
+                    }	
+                    window.onclick = function(event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                }
                 else {
                     waitForReceipt(txId, function () {
-                        window.location.href = "mailto:destinatario@correo.com?subject=Certificado&body=La clave de tu certificado es la siguiente: " + encrypted + " No pierdas la clave o perderás el certificado!%0D%0APuedes verificar tu certificado aquí: " + "http://localhost:80" + "/certificate.html?" + encrypted;
+                        window.location.href = "mailto:destinatario@correo.com?subject=Certificado Eblockfy&body=La clave de tu certificado es la siguiente: " + encrypted + " No pierdas la clave o perderás el certificado!%0D%0APuedes verificar tu certificado aquí: " + "http://localhost:80" + "/certificate.html?" + encrypted;
                         $("#certificate-link-container").show();
                         $("#certificate-link").attr("href", "/certificate.html?" + encrypted);
                         setInitialStatus()
@@ -260,7 +272,7 @@ function makeTransaction(key, encrypted) {
 
 
 //***********************************************************************************/
-// ????????????????????????????
+// Función que espera a que se realice la transacción
 //***********************************************************************************/
 
 function waitForReceipt(hash, cb) {
@@ -362,41 +374,112 @@ function renderKey(encrypted) {
 // Esta función se ejecuta cuando se solicita una búsqueda
 //***********************************************************************************/
 
+//Variable global para que deleteCertificat() pueda eliminar el certificado (no se puede pasar como argumento).
+var searchParam;
+
 function submitSearchForm() {
-    let searchParam;
     searchParam = $('#search-input').val();
-    drecrypted = decryptData(searchParam);
-    $('#certificates-result > tbody').empty();
-    key = renderKey(searchParam);
-    certification.isMyCertificate(key,
-        function (error, response) {
-            if (error) {
-                $('#certificates-result > tbody').append(`
-                <tr>
-                <th>No se ha podido establecer conexión con el contrato</th>
-                </tr>
-                `);
-            }
-            $("#search-result").show();
-            decrypted = decryptData(searchParam); 
-            if (response) {
-                $('#certificates-result > tbody').append(`
+    try {
+        drecrypted = decryptData(searchParam);
+        $('#certificates-result > tbody').empty();
+        key = renderKey(searchParam.slice(30));
+        certification.isMyCertificate("0x"+key,
+            function (error, response) {
+                if (error) {
+                    $('#certificates-result > tbody').append(`
+                    <tr>
+                    <th>No se ha podido establecer conexión con el contrato</th>
+                    </tr>
+                    `);
+                }
+                $("#search-result").show();
+                decrypted = decryptData(searchParam);
+                if (response) {
+                    $('#certificates-result > tbody').append(`
                     <tr>
                     <th>
-                        <div><h4>${decrypted}</h4>
+                        <div>
+                            <h4>
+                                <a target="_blank" href="/certificate.html?${searchParam}">
+                                    <span class="glyphicon glyphicon-eye-open"></span> 
+                                    Ir a certificado
+                                </a>
+                            </h4>
+                        <div>
+                            <h4>
+                                <span id="delete-container" style="color:#e92727; cursor:pointer;" onclick="deleteCertificate()">  
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                    Borrar certificado
+                                    <i id="spinner2" class="fas fa-spinner fa-spin" style="display:none"> Espere por favor...</i>
+                                </span>    
+                            </h4>
+                        <iframe height="400" width="100%" src="/certificate.html?${searchParam}"></iframe>
                         </div>
                     </th>
                     </tr>
-                    `)
-                $('#certificates-result').show();
-            } else {
-
-                $('#certificates-result > tbody').append(`
+                        `);
+                    $('#certificates-result').show();
+                } else {
+                    $('#certificates-result > tbody').append(`
                         <tr>
                         <th>No se han encontrado resultado para esa clave de certificado</th>
                         </tr>
                         `);
-                $('#certificates-result').show();
+                    $('#certificates-result').show();         
+                }         
+            });
+        }
+        catch(err) {
+            var modal = document.getElementById('myModalHexError');
+            var span = document.getElementsByClassName("close")[0];
+            modal.style.display = "block";
+            span.onclick = function() {
+                modal.style.display = "none";
+            }	
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }            
+        }
+}
+
+
+
+
+
+//***********************************************************************************/
+// Esta función se ejecuta al borrar el certificado
+//***********************************************************************************/
+
+function deleteCertificate() {
+    $("#spinner2").show();
+    $("#delete-container").prop( "disabled", true );
+    $("#certificate-deleted-container").show();
+    key = renderKey(searchParam.slice(30));
+    certification.deleteCertificate("0x" + key, { gas: 3000000, gasPrice: web3.toWei(1, 'gwei') }, 
+        function (error, txId) {
+            if (error) { 
+                var modal = document.getElementById('myModalCancel');
+                var span = document.getElementsByClassName("close")[0];
+                modal.style.display = "block";
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }	
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
             }
-        });
+            else {
+                waitForReceipt(txId, function () {
+                    $("#spinner2").hide();
+                    $("#delete-container").prop( "disabled", false );
+                    $("#search-result").show();
+                    submitSearchForm();
+                });
+            }
+        }
+    );
 }

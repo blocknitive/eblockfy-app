@@ -23,7 +23,7 @@
 </head>
 
 <body class="layout-accomplishment view-valid-accomplishment ltr is-idverified certificate certificate-verified" data-view="valid-accomplishment">
-    <div class="wrapper-view" dir="ltr">
+    <div class="wrapper-view" dir="ltr" id="certificado" style="display:none">
         <div class="wrapper-header">
             <header class="header-app" role="banner">
                 <h1 class="header-app-title">
@@ -173,7 +173,34 @@
             </footer>
         </div>
     </div>
-
+    <!-- The Modal Verified -->
+    <div id="myModalVerified" class="modal">
+    <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>
+                    <div class="glyphicon glyphicon-ok"></div>
+                    Certificado validado correctamente por:    
+                </h2>
+            </div>
+            <div class="modal-body">
+                <h3 id="server"> </h3>
+            </div>
+        </div>
+    </div>
+    <!-- The Modal NOT Verified -->
+    <div id="myModalNotVerified" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#FF5733;">
+                <span class="close">&times;</span>
+                <h2>
+                    <div class="glyphicon glyphicon-warning-sign"></div>
+                    Este certificado no existe.   
+                </h2>
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>
