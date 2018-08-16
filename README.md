@@ -1,112 +1,123 @@
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMmMMNMMMMMMMMNNNNNNMMMMMMMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMmdmMMMMMMMMMMMM
-MMMMMMMdhs+s+ooohyNMMMMM-      `:sMMMM+ .MMMMMMMMMMMMMMMMMMMMMMMMMMMMs  MMMMMMMMMMMo`   mMMMMMMMMMMM
-MMMMMys+++++++++++ooNMMM- `mmmdo  :MMM+ .MMMMMMMMMMMMMMMMMMMMMMMMMMMMs  MMMMMMMMMMo `hNNMMMMMMMMMMMM
-MMMNs+++o+++++ooso+++yMM- `MMMMM- `MMM+ .MMMMMMMMMMMMMMMMMMMMMNmNMMMMs  MMMMMMMMMM- :MMMMMMMMMMMMMMM
-MMNy+++o++odmmy++ds+++yM- `ddhy: .hMMM+ .MMMMh/.`  .:sNMMMMs-     .MMs  MMMN+ `so     .. -NMMMN- -NM
-MMNs++os++ooooo++sN+++sN-       `/sNMM+ .MMN- .sdmmy- `dMM: `yNMMdsMMs  MNo` +NMNN- /NNN. -NMN: .NMM
-MMNs++oy++ymmmmmmmm+++yM- `MMMMNh- `dM+ .MM+ `NMMMMMM: .Mh  dMMMMMMMMs  s. :mMMMMM- /MMMm. -N/ .mMMM
-MMMyo++so++shhyyoso++odM- `MMMMMMh  +M+ .MM/ .NMMMMMM: .Mh  hMMMMMMMMs  d: `sNMMMM- /MMMMm. ` `mMMMM
-MMMMso++++o+++++++++ohMM- `hhhhyo` `dM+ .MMm. -ymNNh/ `hMM: `odNNmhmMs  MMd: `sNMM- /MMMMMm` `dMMMMM
-MMMMMmso++++++++++oymMMM:```````./sNMMo`.MMMNy:`   `-oNMMMMy:`    .dMs``MMMMd:`.sM-`+MMMMM+ `dMMMMMM
-MMMMMMs++o+oo+o+o+odMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMo  hMMMMMMM
-MMMMMh++++++++++++++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMs  yMMMMMMMM
-MMMMd++++++++++++++++mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMy  yMMMMMMMMM
-MMMN+++++++++++++++++omMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNydMMMMMMmMMMMMMMMMMMMMMMMMMMMMMMM
-MMMyosyhs+++yy+++shyysyMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMNMNMMMMshmdMhdmhdmmddNdmdmmdmddmMMMMMMMMM
-MMMMMMMMMms+mmoomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMmsdNMNmMNNMNNNMNNNNNNNNNNMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+# Eblockfy
+
+Eblockfy es una aplicaciÃ³n que te permite guardar certificados en la blockchain de [Ethereum](https://ethereum.org/)
+
+## INSTRUCCIONES:
+
+### REQUISITOS: 
+Para ejecutar la aplicaciÃ³n es necesario tener instalado el programa Docker.
+			- Docker version 17.03.2-ce o mayor [INFO](https://docs.docker.com/install)
+
+### INSTALAR EBLOCKFY: 
+La primera vez que vaya a usar la aplicaciÃ³n tendrÃ¡ que instalarla ejecutando el siguiente script, la aplicaciÃ³n se iniciarÃ¡ automÃ¡ticamente.
+```bash 
+./scripts/installEblockfy.sh
+```
+### ACCEDER A EBLOCKFY:
+La app serÃ¡ accesible desde http://localhost:80
+
+### DESINSTALAR EBLOCKFY: 
+Para desinstalar la aplicaciÃ³n ejecute el siguiente script.
+```bash
+./scripts/uninstallEblockfy.sh
+```
+
+### INICIAR EBLOCKFY: 
+Si ha detenido la aplicaciÃ³n en algÃºn momento, podrÃ¡ iniciarla con el siguiente script.
+```bash
+./scripts/startEblockfy.sh
+```
+
+### STOP EBLOCKFY: 
+Si quiere detener la aplicaciÃ³n puede ejcutar el siguiente script.
+```bash
+./scripts/stopEblockfy.sh
+```
+
+### RESET EBLOCKFY: 
+Si estÃ¡ teniendo problemas para iniciar la aplicaciÃ³n ejecute el siguiente script.
+```bash
+./scripts/resetEblockfy.sh
+```
 
 
-INSTRUCCIONES:
+### UPDATE EBLOCKFY: 
+Para actualizar la aplicaciÃ³n ejecute el siguiente script.
+```bash
+./scripts/updateEblockfy.sh
+```
 
-	#REQUISITOS: Para ejecutar la aplicación es necesario tener instalado el programa Docker.
-		- Docker version 17.03.2-ce or higher (INFO --> https://docs.docker.com/install)
+### PERSONALIZAR EBLOCKFY: 
+Personalice la aplicaciÃ³n adaptÃ¡ndola al estilo de su organizaciÃ³n. 
 
-	#INSTALAR EBLOCKFY: La primera vez que vaya a usar la aplicación tendrá que instalarla ejecutando el siguiente script, la aplicación se iniciará automáticamente.
-		- ./scripts/installEblockfy.sh
+#### IMÃGENES: 
+En la carpeta "images" deberÃ¡ tener las imÃ¡genes de su organizaciÃ³n con los siguientes nombres:  
+-> logo.png (ogo que aparece en la cabecera de la aplicaciÃ³n)  
+-> ico.png (Icono que aparece en la pestaÃ±a del explorador)  
+-> firma1.png (Aparece en el certificado. Firma identificativa de la persona que certifica)  
+-> firma2.png (Aparece en el certificado. Firma identificativa de la instituciÃ³n que ejerce el certificado)  
+-> certified.png (Aparece en el certificado. Se recomienda no modificar esta imagen)  
+-> Blockchain.png (Aparece en el certificado. Se recomienda no modificar esta imagen)  
+-> verified-seal-grayscale.png (Marca de agua del certificado. Se recomienda no modificar esta imagen)  
 
-	#DESINSTALAR EBLOCKFY: Para desinstalar la aplicación ejecute el siguiente script.
-		- ./scripts/uninstallEblockfy.sh
+#### ESTILOS: 
+En la carpeta "css", modifique el archivo "mystyle.css" con la informaciÃ³n que crea adecuada:  
 
-	#INICIAR EBLOCKFY: Si ha detenido la aplicación en algún momento, podrá iniciarla con el siguiente script.
-		- ./scripts/startEblockfy.sh
+  
+	/* Fondo de Eblockfy */
+	body {
+	background: #f1f4f7 !important;
+	}
 
-	#STOP EBLOCKFY: Si quiere detener la aplicación puede ejcutar el siguiente script.
-		- ./scripts/stopEblockfy.sh
+	/* Tipo de fuente de Eblockfy */
+	body {
+	font-family: sans-serif !important;
+	}
 
-	#RESET EBLOCKFY: Si está teniendo problemas para iniciar la aplicación ejecute el siguiente script.
-		- Run ./scripts/resetEblockfy.sh
+	/* TamaÃ±o de fuente  de Eblockfy */
+	body {
+	font-size: 14px;
+	}
 
-	#UPDATE EBLOCKFY: Para actualizar la aplicación ejecute el siguiente script.
-		- Run ./scripts/updateEblockfy.sh
+	/* Color temÃ¡tico (cabeceras, botones, etc) */
+	.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary, .btn-primary.disabled, .btn-primary[disabled], fieldset[disabled], .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled], .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled], .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled], .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled], .btn-primary.active, .bg-info, .bg-blue a.bg-info:hover, a.bg-blue:hover, .label-info, .label-info[href]:hover, .label-info[href]:focus, .panel-primary > .panel-heading, .panel-info > .panel-heading, .timeline-badge.primary, .timeline-badge.info, .progress-bar, .progress-bar-info, .progress-bar-blue, .sidebar ul.nav a:hover, .sidebar ul.nav li.parent ul li a:hover, .sidebar ul.nav, .active a, .sidebar ul.nav li.parent a.active, .sidebar ul.nav, .active > a:hover, .sidebar ul.nav li.parent a.active:hover, .sidebar ul.nav, .active > a:focus, .sidebar ul.nav li.parent a.active:focus, .sidebar ul.nav li.current a, .datepicker table tr td.active, .datepicker table tr td.active:hover, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active:hover, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active:focus, .datepicker table tr td.active:hover:focus, .datepicker table tr td.active.disabled:focus, .datepicker table tr td.active.disabled:hover:focus, .datepicker table tr td.active:active, .datepicker table tr td.active:hover:active, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.active, .datepicker table tr td.active:hover.active, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled:hover.active, .open, .dropdown-toggle.datepicker table tr td.active, .open, .dropdown-toggle.datepicker table tr td.active:hover, .open, .dropdown-toggle.datepicker table tr td.active.disabled, .open, .dropdown-toggle.datepicker table tr td.active.disabled:hover  {
+	background-color: #4fe907 !important;
+	}
 
-	#PERSONALIZAR EBLOCKFY: Personalice la aplicación adaptándola al estilo de su organización. 
-	
-		**IMÁGENES**: En la carpeta "images" deberá tener las imágenes de su organización con los siguientes nombres:
-			- logo.png (ogo que aparece en la cabecera de la aplicación)
-			- ico.png (Icono que aparece en la pestaña del explorador)
-			- firma1.png (Aparece en el certificado. Firma identificativa de la persona que certifica)
-			- firma2.png (Aparece en el certificado. Firma identificativa de la institución que ejerce el certificado)
-			- certified.png (Aparece en el certificado. Se recomienda no modificar esta imagen)
-			- Blockchain.png (Aparece en el certificado. Se recomienda no modificar esta imagen)
-			- verified-seal-grayscale.png (Marca de agua del certificado. Se recomienda no modificar esta imagen)
+	/* TamaÃ±o logo.png */
+	#logo {
+	width: 10px; 
+	height: 90px;
+	}
 
-		**ESTILOS**: En la carpeta "css", modifique el archivo "mystyle.css" con la información que crea adecuada:
+	/* TamaÃ±o firma1.png */
+	#firma1 {
+	width: 305px !important; 
+	height: 90px !important;
+	}
 
-			/* Fondo de Eblockfy */
-			body {
-			background: #f1f4f7 !important;
-			}
+	/* TamaÃ±o firma2.png */
+	#firma2 {
+	width: 305px !important; 
+	height: 90px !important;
+	}
 
-			/* Tipo de fuente de Eblockfy */
-			body {
-			font-family: sans-serif !important;
-			}
+	/* TamaÃ±o certified.png */
+	#certified {
+	width: 305px !important; 
+	height: 90px !important;
+	}
 
-			/* Tamaño de fuente  de Eblockfy */
-			body {
-			font-size: 14px;
-			}
+	/* TamaÃ±o Blockchain.png */
+	#Blockchain {
+	width: 305px !important; 
+	height: 90px !important;
+	}
 
-			/* Color temático (cabeceras, botones, etc) */
-			.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary, .btn-primary.disabled, .btn-primary[disabled], fieldset[disabled], .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled], .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled], .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled], .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled], .btn-primary.active, .bg-info, .bg-blue a.bg-info:hover, a.bg-blue:hover, .label-info, .label-info[href]:hover, .label-info[href]:focus, .panel-primary > .panel-heading, .panel-info > .panel-heading, .timeline-badge.primary, .timeline-badge.info, .progress-bar, .progress-bar-info, .progress-bar-blue, .sidebar ul.nav a:hover, .sidebar ul.nav li.parent ul li a:hover, .sidebar ul.nav, .active a, .sidebar ul.nav li.parent a.active, .sidebar ul.nav, .active > a:hover, .sidebar ul.nav li.parent a.active:hover, .sidebar ul.nav, .active > a:focus, .sidebar ul.nav li.parent a.active:focus, .sidebar ul.nav li.current a, .datepicker table tr td.active, .datepicker table tr td.active:hover, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active:hover, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active:focus, .datepicker table tr td.active:hover:focus, .datepicker table tr td.active.disabled:focus, .datepicker table tr td.active.disabled:hover:focus, .datepicker table tr td.active:active, .datepicker table tr td.active:hover:active, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.active, .datepicker table tr td.active:hover.active, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled:hover.active, .open, .dropdown-toggle.datepicker table tr td.active, .open, .dropdown-toggle.datepicker table tr td.active:hover, .open, .dropdown-toggle.datepicker table tr td.active.disabled, .open, .dropdown-toggle.datepicker table tr td.active.disabled:hover  {
-			background-color: #4fe907 !important;
-			}
+	/* TamaÃ±o verified-seal-grayscale.png */
+	#verified-seal-grayscale {
+	width: 305px !important; 
+	height: 90px !important;
+	}
 
-			/* Tamaño logo.png */
-			#logo {
-			width: 10px; 
-			height: 90px;
-			}
-
-			/* Tamaño firma1.png */
-			#firma1 {
-			width: 305px !important; 
-			height: 90px !important;
-			}
-
-			/* Tamaño firma2.png */
-			#firma2 {
-			width: 305px !important; 
-			height: 90px !important;
-			}
-
-			/* Tamaño certified.png */
-			#certified {
-			width: 305px !important; 
-			height: 90px !important;
-			}
-
-			/* Tamaño Blockchain.png */
-			#Blockchain {
-			width: 305px !important; 
-			height: 90px !important;
-			}
-
-			/* Tamaño verified-seal-grayscale.png */
-			#verified-seal-grayscale {
-			width: 305px !important; 
-			height: 90px !important;
-			}
 
