@@ -209,7 +209,7 @@ function validateCertificate(key) {
             document.getElementById("courseCertificated").innerHTML = data["courseCertificated"];
             var time = new Date().getTime();
             var date = new Date(time);
-            document.getElementById("certificationDate").innerHTML = date;
+            //document.getElementById("certificationDate").innerHTML = date;
 			//****************************FALTA AÑADIR EL ENLACE A LA TRANSACCIÓN DE ROPSTEIN***************************/
 			var certificado = document.getElementById('certificado');
 			certificado.style.display = "block";

@@ -1,19 +1,27 @@
-# Para ejecutar la aplicación:
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMmMMNMMMMMMMMNNNNNNMMMMMMMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMmdmMMMMMMMMMMMM
+MMMMMMMdhs+s+ooohyNMMMMM-      `:sMMMM+ .MMMMMMMMMMMMMMMMMMMMMMMMMMMMs  MMMMMMMMMMMo`   mMMMMMMMMMMM
+MMMMMys+++++++++++ooNMMM- `mmmdo  :MMM+ .MMMMMMMMMMMMMMMMMMMMMMMMMMMMs  MMMMMMMMMMo `hNNMMMMMMMMMMMM
+MMMNs+++o+++++ooso+++yMM- `MMMMM- `MMM+ .MMMMMMMMMMMMMMMMMMMMMNmNMMMMs  MMMMMMMMMM- :MMMMMMMMMMMMMMM
+MMNy+++o++odmmy++ds+++yM- `ddhy: .hMMM+ .MMMMh/.`  .:sNMMMMs-     .MMs  MMMN+ `so     .. -NMMMN- -NM
+MMNs++os++ooooo++sN+++sN-       `/sNMM+ .MMN- .sdmmy- `dMM: `yNMMdsMMs  MNo` +NMNN- /NNN. -NMN: .NMM
+MMNs++oy++ymmmmmmmm+++yM- `MMMMNh- `dM+ .MM+ `NMMMMMM: .Mh  dMMMMMMMMs  s. :mMMMMM- /MMMm. -N/ .mMMM
+MMMyo++so++shhyyoso++odM- `MMMMMMh  +M+ .MM/ .NMMMMMM: .Mh  hMMMMMMMMs  d: `sNMMMM- /MMMMm. ` `mMMMM
+MMMMso++++o+++++++++ohMM- `hhhhyo` `dM+ .MMm. -ymNNh/ `hMM: `odNNmhmMs  MMd: `sNMM- /MMMMMm` `dMMMMM
+MMMMMmso++++++++++oymMMM:```````./sNMMo`.MMMNy:`   `-oNMMMMy:`    .dMs``MMMMd:`.sM-`+MMMMM+ `dMMMMMM
+MMMMMMs++o+oo+o+o+odMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMo  hMMMMMMM
+MMMMMh++++++++++++++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMs  yMMMMMMMM
+MMMMd++++++++++++++++mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMy  yMMMMMMMMM
+MMMN+++++++++++++++++omMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNydMMMMMMmMMMMMMMMMMMMMMMMMMMMMMMM
+MMMyosyhs+++yy+++shyysyMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMNMNMMMMshmdMhdmhdmmddNdmdmmdmddmMMMMMMMMM
+MMMMMMMMMms+mmoomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMmsdNMNmMNNMNNNMNNNNNNNNNNMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
-    # Instalar Docker:
-    https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
 
-    # Descargar eblockfy:
-    docker pull jdiegosierra/eblockfy-app:latest
+INSTRUCCIONES:
 
-    # Lanzarlo:
-    docker run -d --name eblockfy-server -h eblockfy-server -p 80:80 jdiegosierra/eblockfy-app:latest
+	- 1º Descargar la aplicación 
+	- 2º Acceder a la carpetca scripts y seguir las instrucciones del README.md que se encuentra en su interior.
 
-    # En el navegador: 
-    localhost/index.html
 
-    # Parar eblockfy:
-    docker stop eblockfy-server
 
-    # Volver a iniciar eblockfy:
-    docker start eblockfy-server 
