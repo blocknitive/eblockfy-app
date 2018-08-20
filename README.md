@@ -1,11 +1,14 @@
 # Eblockfy
 
-Eblockfy es una aplicacion que te permite guardar certificados en la blockchain de [Ethereum](https://ethereum.org/) (Ropsten)
+Eblockfy es una aplicacion que te permite guardar certificados en la blockchain de [Ethereum](https://ethereum.org/)
 
 ## INSTRUCCIONES:
 
 ### REQUISITOS: 
-Para ejecutar la aplicacion es necesario tener instalado el programa Docker.
+
+La aplicación se ejecuta en **Ubuntu 16.04**  
+
+Para ejecutar la aplicacion es necesario tener instalado el programa **Docker**  
 			- Docker version 17.03.2-ce o mayor [INFO](https://docs.docker.com/install)
 
 Para poder guardar los certificados deberá tener instalada, en su navegador, la extensión [Metamask](https://metamask.io/) y conectarse a la red Ropsten.
