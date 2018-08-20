@@ -1,6 +1,6 @@
 # Eblockfy
 
-Eblockfy es una aplicacion que te permite guardar certificados en la blockchain de [Ethereum](https://ethereum.org/) (Ropsten)
+Eblockfy es una aplicacion que te permite guardar certificados en la blockchain de [Ethereum](https://ethereum.org/)
 
 ## INSTRUCCIONES:
 
