@@ -20,36 +20,36 @@ background-color: #4fe907 !important;
 
 /* Dimensiones logo.png */
 #logo {
-width: 10px; 
-height: 90px;
+    width: 305px !important; 
+    height: 85px !important;
 }
 
 /* Dimensiones firma1.png */
 #firma1 {
-width: 305px !important; 
-height: 90px !important;
+    width: 100% !important; 
+    height: 100% !important;
 }
 
 /* Dimensiones firma2.png */
 #firma2 {
-width: 305px !important; 
-height: 90px !important;
+    width: 100% !important; 
+    height: 100% !important;
 }
 
 /* Dimensiones certified.png */
 #certified {
-width: 305px !important; 
-height: 90px !important;
+    width: 100% !important; 
+    height: 100% !important;
 }
 
 /* TamaÃ±o Blockchain.png */
 #Blockchain {
-width: 305px !important; 
-height: 90px !important;
+    width: 100% !important; 
+    height: 100% !important;
 }
 
 /* Dimensiones verified-seal-grayscale.png */
 #verified-seal-grayscale {
-width: 305px !important; 
-height: 90px !important;
+    width: 100% !important; 
+    height: 100% !important;
 }

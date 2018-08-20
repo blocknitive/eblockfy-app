@@ -177,11 +177,11 @@ $(document).ready(function() {
 // Función para validar que el certificado está en la blockchain.
 //***********************************************************************************/
 
-function validateCertificate(key) {
+function validateCertificate(key, cb) {
     certification.getCertificateSender("0x" + key,
     function (error, response) {
         if (error) {
-            alert("No se ha podido establecer conexión con el contrato");
+            cb("No se ha podido establecer conexión con el contrato");
         }       
         else if (response != 0x0000000000000000000000000000000000000000) {
 			// Get the modal
@@ -196,7 +196,7 @@ function validateCertificate(key) {
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
 				if (event.target == modal) {
-					modal.style.display = "none";
+					modal.style.display = "none"; 
 				}
 			}
 			document.getElementById('server').innerHTML = window.location.origin;
@@ -207,13 +207,9 @@ function validateCertificate(key) {
             document.getElementById("courseName").innerHTML = data["courseName"];
             document.getElementById("courseDate").innerHTML = data["courseDate"];
             document.getElementById("courseCertificated").innerHTML = data["courseCertificated"];
-            var time = new Date().getTime();
-            var date = new Date(time);
-            //document.getElementById("certificationDate").innerHTML = date;
-			//****************************FALTA AÑADIR EL ENLACE A LA TRANSACCIÓN DE ROPSTEIN***************************/
 			var certificado = document.getElementById('certificado');
 			certificado.style.display = "block";
-            return data;
+			cb(data);
         } 
         else {
             // Get the modal
@@ -233,7 +229,7 @@ function validateCertificate(key) {
 					window.location.href = window.location.origin + "/index.html";
 				}
 			}
-            return "El certificado no es válido";
+            cb("El certificado no es válido");
         }
     });
 }

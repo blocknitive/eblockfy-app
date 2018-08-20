@@ -1,6 +1,6 @@
 # Eblockfy
 
-Eblockfy es una aplicacion que te permite guardar certificados en la blockchain de [Ethereum](https://ethereum.org/)
+Eblockfy es una aplicacion que te permite guardar certificados en la blockchain de [Ethereum](https://ethereum.org/) (Ropsten)
 
 ## INSTRUCCIONES:
 
@@ -13,10 +13,13 @@ Para poder guardar los certificados deberá tener instalada, en su navegador, la
 ### INSTALAR EBLOCKFY: 
 La primera vez que vaya a usar la aplicacion tendra que instalarla ejecutando el siguiente script, la aplicacion se iniciara automaticamente.
 ```bash 
-./scripts/installEblockfy.sh
+./scripts/installEblockfy.sh tu_puerto tus_archivos
 ```
+**tu_puerto** es el puerto en el que la aplicación estará escuchando.
+**tus_archivos** es la direccion donde estaran tus carpetas *images* y *css*.
+
 ### ACCEDER A EBLOCKFY:
-La app serÃ¡ accesible desde http://localhost:80
+La app sera accesible desde http://localhost:tu_puerto
 
 ### DESINSTALAR EBLOCKFY: 
 Para desinstalar la aplicacion ejecute el siguiente script.
@@ -25,7 +28,7 @@ Para desinstalar la aplicacion ejecute el siguiente script.
 ```
 
 ### INICIAR EBLOCKFY: 
-Si ha detenido la aplicacion en algÃºn momento, podrÃ¡ iniciarla con el siguiente script.
+Si ha detenido la aplicacion en algun momento, podra iniciarla con el siguiente script.
 ```bash
 ./scripts/startEblockfy.sh
 ```
@@ -52,15 +55,16 @@ Para actualizar la aplicacion ejecute el siguiente script.
 ### PERSONALIZAR EBLOCKFY: 
 Personalice la aplicacion adaptandola al estilo de su organizacion. 
 
-#### IMÃGENES: 
-En la carpeta "images" deberÃ¡ tener las imÃ¡genes de su organizaciÃ³n con los siguientes nombres:  
--> logo.png (ogo que aparece en la cabecera de la aplicacion)  
+#### IMAGENES: 
+En la carpeta "images" debera tener las imagenes de su organizacion con los siguientes nombres:  
+-> logo.png (logo que aparece en la cabecera de la aplicacion)  
 -> ico.png (Icono que aparece en la pestaÃ±a del explorador)  
 -> firma1.png (Aparece en el certificado. Firma identificativa de la persona que certifica)  
 -> firma2.png (Aparece en el certificado. Firma identificativa de la institucion que ejerce el certificado)  
 -> certified.png (Aparece en el certificado. Se recomienda no modificar esta imagen)  
 -> Blockchain.png (Aparece en el certificado. Se recomienda no modificar esta imagen)  
 -> verified-seal-grayscale.png (Marca de agua del certificado. Se recomienda no modificar esta imagen)  
+-> Puede utilizar las imágenes de la carpeta *images-test*
 
 #### ESTILOS: 
 En la carpeta "css", modifique el archivo "mystyle.css" con la informacion que crea adecuada:  

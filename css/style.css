@@ -18,8 +18,8 @@ body {
     font-size: 40px; }
   
   h2 {
-    font-weight: 300;
-    margin-bottom: 20px; }
+    font-weight: 300 !important;
+    margin-bottom: 20px !important; }
   
   h3, h4 {
     font-weight: 300; }
@@ -1131,7 +1131,7 @@ border-color:#ccc;
 .close {
     color: white;
     float: right;
-    font-size: 28px;
+    font-size: 28px !important;
     font-weight: bold;
 }
 
@@ -1154,4 +1154,9 @@ border-color:#ccc;
     padding: 2px 16px;
     background-color: #5cb85c;
     color: white;
+}
+
+
+h2, h3 {
+  font-size: 28px !important;
 }
