@@ -6,19 +6,19 @@ Eblockfy es una aplicacion que te permite guardar certificados en la blockchain 
 
 ### REQUISITOS: 
 
-La aplicación se ejecuta en **Ubuntu 16.04**  
+La aplicacion se ejecuta en **Ubuntu 16.04**  
 
 Para ejecutar la aplicacion es necesario tener instalado el programa **Docker**  
 			- Docker version 17.03.2-ce o mayor [INFO](https://docs.docker.com/install)
 
-Para poder guardar los certificados deberá tener instalada, en su navegador, la extensión [Metamask](https://metamask.io/) y conectarse a la red Ropsten.
+Para poder guardar los certificados debera tener instalada, en su navegador, la extension [Metamask](https://metamask.io/) y conectarse a la red Ropsten.
 
 ### INSTALAR EBLOCKFY: 
 La primera vez que vaya a usar la aplicacion tendra que instalarla ejecutando el siguiente script, la aplicacion se iniciara automaticamente.
 ```bash 
 ./scripts/installEblockfy.sh tu_puerto tus_archivos
 ```
-**tu_puerto** es el puerto en el que la aplicación estará escuchando.
+**tu_puerto** es el puerto en el que la aplicacion estara escuchando.
 **tus_archivos** es la direccion donde estaran tus carpetas *images* y *css*.
 
 ### ACCEDER A EBLOCKFY:
@@ -67,7 +67,7 @@ En la carpeta "images" debera tener las imagenes de su organizacion con los sigu
 -> certified.png (Aparece en el certificado. Se recomienda no modificar esta imagen)  
 -> Blockchain.png (Aparece en el certificado. Se recomienda no modificar esta imagen)  
 -> verified-seal-grayscale.png (Marca de agua del certificado. Se recomienda no modificar esta imagen)  
--> Puede utilizar las imágenes de la carpeta *images-test*
+-> Puede utilizar las imagenes de la carpeta *images-test*
 
 #### ESTILOS: 
 En la carpeta "css", modifique el archivo "mystyle.css" con la informacion que crea adecuada:  

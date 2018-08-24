@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html class="no-js" lang="es-419"></html>
-<head dir="ltr">
+<html lang="es-ES">
+
+<head>
     <title>Eblockfy - Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,18 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.3/css/tether.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/mystyle.css">    
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
-        crossorigin="anonymous"></script> 
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-    <script src="js/app.js"></script>  
+    <script src="js/app.js"></script>
 </head>
+
 <body>
-    <!--Loggin panel-->
     <div id="login-panel" class="row">
         <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default">
@@ -29,7 +28,8 @@
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" aria-describedby="emailHelp" type="email" name="user" id="user" placeholder="Email" required/>
-                                <small id="emailHelp" class="form-text text-muted">Asegurate de que es una dirección registrada en el sistema.</small>
+                                <small id="emailHelp" class="form-text text-muted">Asegurate de que es una dirección registrada
+                                    en el sistema.</small>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="password" name="password" id="password" placeholder="Contraseña" required />
@@ -42,13 +42,12 @@
             </div>
         </div>
     </div>
-    <!--Panel de registro de certificados y búsquedas-->
     <div id="main-panel" class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1 main" style="display:none;">
         <div class="row">
             <div class="col-lg-6">
                 <h1 class="page-header">Creación certificados</h1>
             </div>
-            <div class="col-lg-4 col-lg-offset-2">  <!--No habría que ponerle un ID para poder redimensionar la imagen?-->
+            <div class="col-lg-4 col-lg-offset-2">
                 <img id="logo" src="/images/logo.png" alt="Tu logo">
             </div>
         </div>
@@ -57,12 +56,17 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">¡Bienvenido!</div>
                     <div class="panel-body">
-                        <h4>Ayuda: </h4> <!--Añadir más información-->
-                        <p>Este es un formulario a través del cual podrás rellenar los datos del alumno. El certificado se guardará en la blockchain.
-                            <br/> Al crearlo podrás enviar el certificado por correo y obtendrás un link que te llevará a una página donde podrás verlo e imprimirlo.
-                            <br/> ¡ATENCIÓN! Si se pierde el link del certificado, no habrá forma de rcuperarlo.
-                            <br/> Si tiene cualquier duda a cerca de como utilizar la aplicación, consulte la documntación que se facilita en el archivo "infoEblockfy.pwt" .
-                            <br/> Contacto -> info@blocknitive.com
+                        <h4>Ayuda: </h4>
+                        <p>Este es un formulario a través del cual podrás rellenar los datos del alumno. El certificado se
+                            guardará en la blockchain.
+                            <br/> Al crearlo podrás enviar el certificado por correo y obtendrás un link que te llevará al
+                            certificado donde podrás verlo e imprimirlo.
+                            <br/>
+                            <a id="certificateExample" target="_blank" href="certificate.html?8c7ff6b8d251ca98d81a9915903b12f18e92fecd62ea2b91ceecc7e472bcc1cea61f573cf53ee5c22a79fcc8ce953ce5a5064a7139aa31d57384f5cc876d774b9e991eaf97223b05e644a18ce85d66e7488da8a6e07a57b266d7217efa185331d750a6d6ff0436e79de3f4d8367a17ecce75128f2ebbbb4831b2a4ce257942ed0e">Aquí tienes un certificado guardado en la Blockchain</a>                          
+                            <br/> <b>¡ATENCIÓN!</b> Si se pierde el link del certificado, no habrá forma de recuperarlo.
+                            <br/> Si tiene cualquier duda acerca de como utilizar la aplicación, consulte la documntación
+                            que se facilita en el archivo "infoEblockfy.pttx".
+                            <br/> Puede contactar con los desarrolladores en info@blocknitive.com
                         </p>
                     </div>
                 </div>
@@ -79,7 +83,6 @@
                             </h3>
                         </li>
                     </ul>
-                    <!--Panel formulario-->
                     <div id="certification-form" class="panel panel-default">
                         <div class="panel-body">
                             <form id="form-certification">
@@ -87,8 +90,7 @@
                                     <div class="form-group">
                                         <p>A continuación podrás insertar la infromación del curso</p>
                                         <label>Nombre del curso:</label>
-                                        <input class="form-control" name="courseName" id="courseName" value="Ingeniería de Telecomunicaciones"
-                                            required>
+                                        <input class="form-control" name="courseName" id="courseName" value="Ingeniería de Telecomunicaciones" required>
                                         <label>Tipo de certificado:</label>
                                         <input class="form-control" name="courseCertificated" id="courseCertificated" value="123456" required>
                                         <label>Fechas del curso:</label>
@@ -98,7 +100,6 @@
                                         <div class="panel-heading">Información del usuario</div>
                                         <div class="panel-body">
                                             <p>A continuación podrás insertar la información del alumno.</p>
-
                                             <div class="form-group">
                                                 <label>Nombre del alumno</label>
                                                 <input class="form-control" name="alumnName" id="alumnName" value="Un alumno" required>
@@ -106,6 +107,7 @@
                                         </div>
                                     </div>
                                     <button id="submit-certificate" type="submit" class="btn btn-primary">Crear certificado</button>
+
                                     <i id="spinner" class="fas fa-spinner fa-spin" style="display:none"></i>
                                     <div id="certificate-link-container" class="message success" style="display:none;">
                                         <p>
@@ -113,11 +115,20 @@
                                             <a id="certificate-link" target="_blank" href="certificate.html">aquí</a>!
                                         </p>
                                     </div>
+                                    <div id="notMetamask" class="message success" style="display:none;">
+                                        <p>
+                                            <strong>Por favor instale Metamask <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">aquí</a></strong>
+                                        </p>
+                                    </div>
+                                    <div id="notAccount" class="message success" style="display:none;">
+                                        <p>
+                                            <strong>Por favor acceda a su wallet de Metamask y refresque la página.</strong>
+                                        </p>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <!--Panel búsqueda-->
                     <div id="certification-search" class="panel panel-default">
                         <div class="panel-body">
                             <div class="col-sm-12">
@@ -137,10 +148,38 @@
                                         <h3>Certificado:</h3>
                                     </div>
                                     <div class="panel-body">
-                                        <table id="certificates-result" class="table table-hover" style="display:none">
+                                        <table id="certificates-result" class="table table-hover">
                                             <tbody>
+                                                <tr id="notContract" style="display:none;">
+                                                    <th>No se ha podido establecer conexión con el contrato</th>
+                                                </tr>
+                                                <tr id="showCertificate" style="display:none;">
+                                                    <th>
+                                                        <h4>
+                                                            <a href="" target="_blank" onclick="location.href=window.location.href+'certificate.html?'+searchParam;return false;">
+                                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                                                Ir a certificado
+                                                            </a>
+                                                        </h4>
+                                                        <div>
+                                                            <h4>
+                                                                <span id="delete-container" style="color:#e92727; cursor:pointer;" onclick="deleteCertificate()">
+                                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                                    Borrar certificado
+                                                                    <i id="spinner2" class="fas fa-spinner fa-spin" style="display:none"> Espere
+                                                                        por favor...</i>
+                                                                </span>
+                                                            </h4>
+                                                            <iframe id="resultSearch" height="400" width="100%" src=""></iframe>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                <tr id="notFoundCertificate" style="display:none;">
+                                                    <th>No se han encontrado resultado para esa clave de certificado</th>
+                                                </tr>
                                             </tbody>
                                         </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -149,30 +188,28 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Este modal salta al cancelar la transacción-->
-    <div id="myModalCancel" class="modal">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color:#FF5733;">
-                <span class="close">&times;</span>
-                <h2>
-                    <div class="glyphicon glyphicon-warning-sign"></div>
-                    El certificado no se ha creado.  
-                </h2>
+        <div id="myModalCancel" class="modal">
+            <div class="modal-content modal-header-error">
+                <div class="modal-header-error">
+                    <span class="close">&times;</span>
+                    <h2>
+                        <div class="glyphicon glyphicon-warning-sign"></div>
+                        El certificado no se ha creado.
+                    </h2>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Este modal salta al introducir un valor incorrecto en el buscador -->
-    <div id="myModalHexError" class="modal">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color:#FF5733;">
-                <span class="close">&times;</span>
-                <h2>
-                    <div class="glyphicon glyphicon-warning-sign"></div>
-                    El código tiene que estar en base hexadecimal. 
-                </h2>
+        <div id="myModalHexError" class="modal">
+            <div class="modal-content modal-header-error">
+                <div class="modal-header-error">
+                    <span class="close">&times;</span>
+                    <h2>
+                        <div class="glyphicon glyphicon-warning-sign"></div>
+                        El código tiene que estar en base hexadecimal.
+                    </h2>
+                </div>
             </div>
         </div>
-    </div>
 </body>
+
 </html>
