@@ -1,8 +1,8 @@
 //Dirección del contrato UserCertificates.sol (en Ropsten) donde se almacenan los certificdos.
-var certificatesContract = "0x5872f5d663ebbd170723492e4d73d6cbce29b6e8";
+var certificatesContract = "0x75e7f7c6a42a9e7b4bcb47b73ff97aafd57976bf";
 
 //Dirección del contrato LogicContract.sol (en Ropsten) con las funciones a ejecutar.
-var logicContract = "0x481b83735d719fdf160332357f58fb271ddfdb92";
+var logicContract = "0x81efa4f101d2399c37277eb23fc94e138e92a20f";
 
 //ABI del contrato LogicCertificate.sol.
 var abiArray = [
@@ -54,6 +54,25 @@ var abiArray = [
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_idCertificate",
+				"type": "bytes32"
+			}
+		],
+		"name": "existsCertificate",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -62,6 +81,20 @@ var abiArray = [
 			}
 		],
 		"name": "deleteCertificate",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_priceInWei",
+				"type": "uint256"
+			}
+		],
+		"name": "setPriceInWei",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -79,20 +112,6 @@ var abiArray = [
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_priceInWei",
-				"type": "uint256"
-			}
-		],
-		"name": "setPrice",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

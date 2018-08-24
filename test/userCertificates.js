@@ -15,7 +15,7 @@ contract("Testing del contrato de almacenamiento de certificados", async (accoun
         catch (error){
             e = error;
         }
-        assert.notEqual(e,null);
+        assert.isNotNull(e);
         assert.equal(accounts[1], await instance.getOwner.call());
     });
     it("Obtener un certificado desde una cuenta con permisos", async () => {
@@ -33,7 +33,7 @@ contract("Testing del contrato de almacenamiento de certificados", async (accoun
         catch (error){
             e = error;
         }
-        assert.notEqual(e,null);
+        assert.isNotNull(e);
     })
     it("Guardar un certificado desde una cuenta con permisos", async () => {
         let instance = await UserCertificates.deployed();
@@ -49,7 +49,7 @@ contract("Testing del contrato de almacenamiento de certificados", async (accoun
         catch (error){
             e = error;
         }
-        assert.notEqual(e,null);
+        assert.isNotNull(e);    
         assert.equal(0x0, await instance.getCertificateSender.call(0x2, {from : accounts[2]}));
     });
 });
